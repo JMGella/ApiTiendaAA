@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,13 +16,23 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
+    @Column(nullable = false)
     private int quantity;
-    @Column
+    @Column(nullable = false)
     private float subtotal;
     @Column
     private float discount;
     @Column
     private LocalDate creationDate;
+
+@ManyToOne
+@JoinColumn(name = "product_id")
+@JsonBackReference(value = "product-orderDetails")
+private Product product;
+
+@ManyToOne
+@JoinColumn(name = "order_id")
+@JsonBackReference(value = "order-orderDetails")
+private Order order;
 
 }

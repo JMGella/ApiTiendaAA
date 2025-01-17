@@ -1,11 +1,15 @@
 package org.example.apitiendaaa.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,17 +19,24 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
+    @Column(nullable = false)
     private String status;
-    @Column
+    @Column(nullable = false)
     private int total;
-    @Column
+    @Column(nullable = false)
     private String address;
     @Column
     private LocalDate creationDate;
     @Column
     private String paymentMethod;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference(value = "user-orders")
+    private User user;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "order-orderDetails")
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
 }
