@@ -2,6 +2,7 @@ package org.example.apitiendaaa.controller;
 
 import org.example.apitiendaaa.domain.DTO.UserOutDTO;
 import org.example.apitiendaaa.domain.User;
+import org.example.apitiendaaa.exception.ErrorResponse;
 import org.example.apitiendaaa.exception.UserNotFoundException;
 import org.example.apitiendaaa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserOutDTO>> getAll(@RequestParam(value = "name", defaultValue = "") String name,
                                                   @RequestParam(value = "email", defaultValue = "") String surname,
-                                                    @RequestParam(value = "active", defaultValue = "") boolean active) {
+                                                    @RequestParam(value = "active", defaultValue = "false") boolean active) {
         List<UserOutDTO> users = userService.getAll(name, surname, active);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -48,12 +49,13 @@ public class UserController {
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<User> deleteUser(@RequestParam long userId) throws UserNotFoundException {
         userService.delete(userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return  ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler
-    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException exception) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception) {
+        ErrorResponse error = ErrorResponse.generalError(404, exception.getMessage());
+        return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
 
 

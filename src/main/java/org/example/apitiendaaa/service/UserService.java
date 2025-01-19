@@ -5,6 +5,7 @@ import org.example.apitiendaaa.domain.User;
 import org.example.apitiendaaa.exception.UserNotFoundException;
 import org.example.apitiendaaa.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class UserService {
         } else {
             users = userRepository.findByNameAndEmailAndActive(name, email, active);
         }
-        List <UserOutDTO> usersDTO = modelMapper.map(users, List.class);
+        List <UserOutDTO> usersDTO = modelMapper.map(users,new TypeToken<List<UserOutDTO>>() {}.getType());
         return usersDTO;
     }
 
