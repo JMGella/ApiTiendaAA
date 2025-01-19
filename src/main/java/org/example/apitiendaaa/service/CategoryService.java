@@ -9,6 +9,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,12 +25,13 @@ public class CategoryService {
 
     public List<CategoryOutDTO> getAll(String name, Boolean active, String creationDate){
         List<Category> categories;
+        LocalDate creationLocalDate = LocalDate.parse(creationDate);
         if (name.isEmpty() && active == null && creationDate.isEmpty()){
           categories = categoryRepository.findAll();
 
         }
         else if (name.isEmpty() && active == null){
-           categories = categoryRepository.findByCreationDate(creationDate);
+           categories = categoryRepository.findByCreationDate(creationLocalDate);
 
         }
         else if (name.isEmpty() && creationDate.isEmpty()){
@@ -41,11 +43,11 @@ public class CategoryService {
 
         }
         else if (name.isEmpty()){
-           categories = categoryRepository.findByActiveAndCreationDate(active, creationDate);
+           categories = categoryRepository.findByActiveAndCreationDate(active, creationLocalDate);
 
         }
         else if (active == null){
-            categories = categoryRepository.findByNameAndCreationDate(name, creationDate);
+            categories = categoryRepository.findByNameAndCreationDate(name, creationLocalDate);
 
         }
         else if (creationDate.isEmpty()){
@@ -54,7 +56,7 @@ public class CategoryService {
 
         }
         else{
-             categories = categoryRepository.findByNameAndActiveAndCreationDate(name, active, creationDate);
+             categories = categoryRepository.findByNameAndActiveAndCreationDate(name, active, creationLocalDate);
 
         }
         return modelMapper.map(categories, new TypeToken<List<CategoryOutDTO>>() {}.getType());
