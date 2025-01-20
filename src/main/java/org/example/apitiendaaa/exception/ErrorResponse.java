@@ -1,7 +1,10 @@
 package org.example.apitiendaaa.exception;
 
+import lombok.Data;
+
 import java.util.Map;
 
+@Data
 public class ErrorResponse {
 
     private int errorcode;
