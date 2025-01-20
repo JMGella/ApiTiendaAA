@@ -25,7 +25,7 @@ public class ErrorResponse {
         return new ErrorResponse(code, message);
     }
 
-    public static ErrorResponse validationError(Map<String, String> errors) {
+    public static ErrorResponse validationError(int i, String validationError, Map<String, String> errors) {
         return new ErrorResponse(errors);
     }
 

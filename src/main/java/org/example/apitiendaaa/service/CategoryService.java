@@ -20,6 +20,7 @@ public class CategoryService {
     private ModelMapper modelMapper;
 
     public Category add(Category category) {
+        category.setCreationDate(LocalDate.now());
         return categoryRepository.save(category);
     }
 

@@ -13,6 +13,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -51,6 +52,7 @@ public class ProductService {
     public Product add(long categoryId, Product product) throws CategoryNotFoundException {
         Category category = categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new);
         product.setCategory(category);
+        product.setCreationDate(LocalDate.now());
         return productRepository.save(product);
 
     }

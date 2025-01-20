@@ -9,9 +9,13 @@ import org.example.apitiendaaa.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OrderController {
@@ -63,5 +67,29 @@ public class OrderController {
         ErrorResponse error = ErrorResponse.generalError(404, exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception) {
+        ErrorResponse error = ErrorResponse.generalError(404, exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(Exception exception) {
+        ErrorResponse error = ErrorResponse.generalError(500, exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> MethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        Map<String, String> errors = new HashMap<>();
+        exception.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        ErrorResponse error = ErrorResponse.validationError(400, "Validation error", errors);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

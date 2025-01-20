@@ -55,6 +55,7 @@ public class OrderService {
     public Order add(long userId, Order order) throws UserNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         order.setUser(user);
+        order.setCreationDate(LocalDate.now());
         return orderRepository.save(order);
 
     }
