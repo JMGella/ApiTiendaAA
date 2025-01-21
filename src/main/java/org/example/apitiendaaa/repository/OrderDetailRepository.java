@@ -16,11 +16,11 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Long>
 
     List<OrderDetail> findByDiscount(long disccount);
 
-    List<OrderDetail> findByUserId(long userId);
+    List<OrderDetail> findByProductId(long productId);
 
     List<OrderDetail> findByOrderIdAndDiscount(long orderId, long disccount);
 
-    List<OrderDetail> findByUserIdAndOrderId(long userId, long orderId);
+    List<OrderDetail> findByProductIdAndOrderId(long productId, long orderId);
 
-    List<OrderDetail> findByUserIdAndOrderIdAndDiscount(long userId, long orderId, long disccount);
+    List<OrderDetail> findByProductIdAndOrderIdAndDiscount(long productId, long orderId, long disccount);
 }

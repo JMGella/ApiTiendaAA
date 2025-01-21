@@ -35,9 +35,9 @@ public class OrderDetailController {
     }
 
     @GetMapping("/users/{userId}/orders/{orderId}/details")
-    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@RequestParam long userId, @RequestParam long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
+    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@RequestParam long productId, @RequestParam long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
        logger.info("BEGIN getDetails");
-        List<OrderDetailOutDTO> orderDetails = orderDetailService.getAll(userId, orderId, discount);
+        List<OrderDetailOutDTO> orderDetails = orderDetailService.getAll(productId, orderId, discount);
         logger.info("END getDetails");
         return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }

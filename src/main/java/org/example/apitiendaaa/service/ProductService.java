@@ -28,23 +28,23 @@ public class ProductService {
     public List<ProductOutDTO> getAll(String name, double price, long categoryid) throws CategoryNotFoundException {
 
         List<Product> productList;
+        Category category = categoryRepository.findById(categoryid).orElseThrow(CategoryNotFoundException::new);
         if(name.isEmpty() && price == 0 && categoryid == 0) {
             productList = productRepository.findAll();
         } else if(name.isEmpty() && price == 0) {
-            Category category = categoryRepository.findById(categoryid).orElseThrow(CategoryNotFoundException::new);
             productList = productRepository.findByCategory(category);
         } else if(name.isEmpty() && categoryid == 0) {
             productList = productRepository.findByPrice(price);
         } else if(price == 0 && categoryid == 0) {
             productList = productRepository.findByName(name);
         } else if(name.isEmpty()) {
-            productList = productRepository.findByPriceAndCategory(price, categoryid);
+            productList = productRepository.findByPriceAndCategory(price, category);
         } else if(price == 0) {
-            productList = productRepository.findByNameAndCategory(name, categoryid);
+            productList = productRepository.findByNameAndCategory(name, category);
         } else if(categoryid == 0) {
             productList = productRepository.findByNameAndPrice(name, price);
         } else {
-            productList = productRepository.findByNameAndPriceAndCategory(name, price, categoryid);
+            productList = productRepository.findByNameAndPriceAndCategory(name, price, category);
         }
         return modelMapper.map(productList, new TypeToken<List<ProductOutDTO>>() {}.getType());
     }

@@ -57,23 +57,23 @@ public class OrderDetailService {
 
 
 
-    public List<OrderDetailOutDTO> getAll(long userId, long orderId, long discount) {
+    public List<OrderDetailOutDTO> getAll(long productId, long orderId, long discount) {
         List<OrderDetail> orderDetails;
 
-        if (userId == 0 && orderId == 0 && discount== 0) {
+        if (productId == 0 && orderId == 0 && discount== 0) {
             orderDetails = (List<OrderDetail>) orderDetailRepository.findAll();
-        } else if (userId == 0 && orderId == 0) {
+        } else if (productId == 0 && orderId == 0) {
             orderDetails = orderDetailRepository.findByDiscount(discount);
-        } else if (userId == 0 && discount == 0) {
+        } else if (productId == 0 && discount == 0) {
             orderDetails = orderDetailRepository.findByOrderId(orderId);
         } else if (orderId == 0) {
-            orderDetails = orderDetailRepository.findByUserId(userId);
-        } else if (userId == 0) {
+            orderDetails = orderDetailRepository.findByProductId(productId);
+        } else if (productId == 0) {
             orderDetails = orderDetailRepository.findByOrderIdAndDiscount(orderId, discount);
         } else if (discount == 0) {
-            orderDetails = orderDetailRepository.findByUserIdAndOrderId(userId, orderId);
+            orderDetails = orderDetailRepository.findByProductIdAndOrderId(productId, orderId);
         } else {
-            orderDetails = orderDetailRepository.findByUserIdAndOrderIdAndDiscount(userId, orderId, discount);
+            orderDetails = orderDetailRepository.findByProductIdAndOrderIdAndDiscount(productId, orderId, discount);
         }
         return modelMapper.map(orderDetails, new TypeToken<List<OrderDetailOutDTO>>() {}.getType());
     }
