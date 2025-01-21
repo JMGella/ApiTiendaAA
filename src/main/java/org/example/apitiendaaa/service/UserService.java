@@ -56,13 +56,24 @@ public class UserService {
 
         User userToUpdate = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         if(userToUpdate != null) {
-            userToUpdate.setName(user.getName());
-            userToUpdate.setEmail(user.getEmail());
-            userToUpdate.setBirthDate(user.getBirthDate());
-            userToUpdate.setAddress(user.getAddress());
-            userToUpdate.setPhone(user.getPhone());
-            userToUpdate.setCreationDate(user.getCreationDate());
-            userToUpdate.setActive(user.isActive());
+            if (user.getName() != null) {
+                userToUpdate.setName(user.getName());
+            }
+            if (user.getEmail() !=null) {
+                userToUpdate.setEmail(user.getEmail());
+            }
+            if (user.getBirthDate() != null) {
+                userToUpdate.setBirthDate(user.getBirthDate());
+            }
+            if (user.getAddress() != null) {
+                userToUpdate.setAddress(user.getAddress());
+            }
+            if (user.getPhone() != null) {
+                userToUpdate.setPhone(user.getPhone());
+            }
+            if (!(user.getActive() == null)) {
+                userToUpdate.setActive(user.getActive());
+            }
             return userRepository.save(userToUpdate);
         }
         return null;

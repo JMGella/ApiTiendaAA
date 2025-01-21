@@ -34,9 +34,9 @@ public class CategoryController {
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryOutDTO>> getAll(@RequestParam(value = "name", defaultValue = "") String name ,
                                                        @RequestParam(value = "active", defaultValue = "") Boolean active,
-                                                       @RequestParam(value = "creationDate",defaultValue = "") String creationdate) {
+                                                       @RequestParam(value = "creationDate",defaultValue ="") String creationDate) {
         logger.info("BEGIN categories getAll");
-        List<CategoryOutDTO> categories = categoryService.getAll(name, active, creationdate);
+        List<CategoryOutDTO> categories = categoryService.getAll(name, active, creationDate);
         logger.info("END categories getAll");
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }

@@ -25,7 +25,7 @@ public class Category {
     @Column
     private LocalDate creationDate;
     @Column
-    private boolean active;
+    private Boolean active;
     @Column
     private String image;
 

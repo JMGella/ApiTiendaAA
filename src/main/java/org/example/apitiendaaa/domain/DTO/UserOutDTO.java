@@ -9,6 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserOutDTO {
+    private long id;
     private String name;
     private String email;
+    private String birthDate;
+    private boolean active;
+    private String address;
+    private String phone;
+    private String creationDate;
+
 }

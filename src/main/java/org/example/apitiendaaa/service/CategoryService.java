@@ -26,7 +26,11 @@ public class CategoryService {
 
     public List<CategoryOutDTO> getAll(String name, Boolean active, String creationDate){
         List<Category> categories;
-        LocalDate creationLocalDate = LocalDate.parse(creationDate);
+        LocalDate creationLocalDate = null;
+        if (!creationDate.isEmpty()){
+            creationLocalDate = LocalDate.parse(creationDate);
+        }
+
         if (name.isEmpty() && active == null && creationDate.isEmpty()){
           categories = categoryRepository.findAll();
 
@@ -72,11 +76,18 @@ public class CategoryService {
         Category categoryToUpdate = categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new);
 
         if (categoryToUpdate != null) {
-            categoryToUpdate.setName(category.getName());
-            categoryToUpdate.setDescription(category.getDescription());
-            categoryToUpdate.setCreationDate(category.getCreationDate());
-            categoryToUpdate.setActive(category.isActive());
-            categoryToUpdate.setImage(category.getImage());
+            if (category.getName() != null) {
+                categoryToUpdate.setName(category.getName());
+            }
+            if (category.getDescription() != null) {
+                categoryToUpdate.setDescription(category.getDescription());
+            }
+            if (category.getActive() != null) {
+                categoryToUpdate.setActive(category.getActive());
+            }
+            if (category.getImage() != null) {
+                categoryToUpdate.setImage(category.getImage());
+            }
 
             return categoryRepository.save(categoryToUpdate);
         }

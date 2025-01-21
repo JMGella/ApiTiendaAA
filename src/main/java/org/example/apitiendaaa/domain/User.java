@@ -28,11 +28,11 @@ public class User {
     @Column
     private LocalDate birthDate;
     @Column
-    private boolean active;
+    private Boolean active;
     @Column
     private String address;
     @Column
-    @Pattern(regexp = "\\+?[0-9]", message = "El número de telefono deben ser solo números")
+    @Pattern(regexp = "\\+?[0-9]+", message = "El número de telefono deben ser solo números")
     private String phone;
     @Column
     private LocalDate creationDate;
