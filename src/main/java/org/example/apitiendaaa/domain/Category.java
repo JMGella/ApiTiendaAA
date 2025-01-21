@@ -20,7 +20,7 @@ public class Category {
     private long id;
     @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private String description;
     @Column
     private LocalDate creationDate;

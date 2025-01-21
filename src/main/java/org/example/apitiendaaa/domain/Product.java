@@ -3,6 +3,7 @@ package org.example.apitiendaaa.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Product {
     @Column
     private String description;
     @Column(nullable = false)
+    @Positive(message = "El precio debe ser mayor a 0")
     private float price;
     @Column
     private LocalDate creationDate;
