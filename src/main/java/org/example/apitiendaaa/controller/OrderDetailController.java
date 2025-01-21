@@ -27,7 +27,7 @@ public class OrderDetailController {
 
 
     @PostMapping("/users/{userId}/orders/{orderId}/details")
-    public ResponseEntity<OrderDetail> addOrderDetail(@RequestParam long userId, @RequestParam long orderId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public ResponseEntity<OrderDetail> addOrderDetail(@PathVariable long userId, @PathVariable long orderId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
        logger.info("BEGIN addOrderDetail");
         OrderDetail orderDetail = orderDetailService.add(userId, orderId, orderDetailIn);
         logger.info("END addOrderDetail");
@@ -35,7 +35,7 @@ public class OrderDetailController {
     }
 
     @GetMapping("/users/{userId}/orders/{orderId}/details")
-    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@RequestParam long productId, @RequestParam long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
+    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@PathVariable long productId, @PathVariable long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
        logger.info("BEGIN getDetails");
         List<OrderDetailOutDTO> orderDetails = orderDetailService.getAll(productId, orderId, discount);
         logger.info("END getDetails");
@@ -51,7 +51,7 @@ public class OrderDetailController {
     }
 
     @PutMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
-    public ResponseEntity<OrderDetail> updateOrderDetail(@RequestParam long userId, @RequestParam long orderId, @RequestParam long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public ResponseEntity<OrderDetail> updateOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
         logger.info("BEGIN updateOrderDetail");
         OrderDetail orderDetail = orderDetailService.update(userId, orderId, detailId, orderDetailIn);
         logger.info("END updateOrderDetail");
@@ -59,7 +59,7 @@ public class OrderDetailController {
     }
 
     @DeleteMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
-    public ResponseEntity<Void> deleteOrderDetail(@RequestParam long userId, @RequestParam long orderId, @RequestParam long detailId) throws OrderNotFoundException, UserNotFoundException, OrderDetailNotFoundException {
+    public ResponseEntity<Void> deleteOrderDetail(@RequestParam long userId, @PathVariable long orderId, @PathVariable long detailId) throws OrderNotFoundException, UserNotFoundException, OrderDetailNotFoundException {
         logger.info("BEGIN deleteOrderDetail");
         orderDetailService.delete(userId, orderId, detailId);
         logger.info("END deleteOrderDetail");

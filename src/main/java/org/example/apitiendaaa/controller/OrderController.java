@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @PostMapping("users/{userId}/orders")
-    public ResponseEntity<Order> addOrder(@RequestParam long userId, @RequestBody Order order) throws UserNotFoundException {
+    public ResponseEntity<Order> addOrder(@PathVariable long userId, @RequestBody Order order) throws UserNotFoundException {
         logger.info("BEGIN addOrder");
         orderService.add(userId, order);
         logger.info("END addOrder");
@@ -47,7 +47,7 @@ public class OrderController {
 
     @GetMapping("users/{userId}/orders")
 
-    public ResponseEntity<List<OrderOutDTO>> getOrdersByUser(@RequestParam long userId) throws UserNotFoundException {
+    public ResponseEntity<List<OrderOutDTO>> getOrdersByUser(@PathVariable long userId) throws UserNotFoundException {
         logger.info("BEGIN getOrdersByUser");
         List<OrderOutDTO> orderout = orderService.getOrdersByUser(userId);
         logger.info("END getOrdersByUser");
@@ -55,7 +55,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders/{orderId}")
-    public ResponseEntity<Order> getOrder(@RequestParam long orderId) throws OrderNotFoundException {
+    public ResponseEntity<Order> getOrder(@PathVariable long orderId) throws OrderNotFoundException {
         logger.info("BEGIN getOrder");
         Order order = orderService.get(orderId);
         logger.info("END getOrder");
@@ -63,7 +63,7 @@ public class OrderController {
     }
 
     @PutMapping("/users/{userId}/orders/{orderId}")
-    public ResponseEntity<Order> updateOrder(@RequestParam long userId, @RequestParam long orderId, @RequestBody Order order) throws UserNotFoundException, OrderNotFoundException {
+    public ResponseEntity<Order> updateOrder(@PathVariable long userId, @PathVariable long orderId, @RequestBody Order order) throws UserNotFoundException, OrderNotFoundException {
        logger.info("BEGIN updateOrder");
         Order ordertoupdate = orderService.update(userId, orderId, order);
         logger.info("END updateOrder");
@@ -71,7 +71,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/orders/{orderId}")
-    public ResponseEntity<Void> deleteOrder(@RequestParam long orderId) throws OrderNotFoundException {
+    public ResponseEntity<Void> deleteOrder(@PathVariable long orderId) throws OrderNotFoundException {
         logger.info("BEGIN deleteOrder");
         orderService.delete(orderId);
         logger.info("END deleteOrder");

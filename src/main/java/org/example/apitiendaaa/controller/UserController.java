@@ -27,7 +27,7 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         logger.info("BEGIN addUser");
         User newUser = userService.add(user);
         logger.info("END addUser");
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("users/{userId}")
-    public ResponseEntity<User> getUser(long userId) throws UserNotFoundException {
+    public ResponseEntity<User> getUser(@PathVariable long userId) throws UserNotFoundException {
         logger.info("BEGIN getUser");
         User user = userService.get(userId);
         logger.info("END getUser");
@@ -55,7 +55,7 @@ public class UserController {
 
 
     @PutMapping("/users/{userId}")
-    public ResponseEntity<User> updateUser(@RequestParam long userId, @RequestBody User user) throws UserNotFoundException {
+    public ResponseEntity<User> updateUser(@PathVariable long userId, @RequestBody User user) throws UserNotFoundException {
         logger.info("BEGIN updateUser");
         User updatedUser = userService.update(userId, user);
         logger.info("END updateUser");
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<User> deleteUser(@RequestParam long userId) throws UserNotFoundException {
+    public ResponseEntity<User> deleteUser(@PathVariable long userId) throws UserNotFoundException {
         logger.info("BEGIN deleteUser");
         userService.delete(userId);
         logger.info("END deleteUser");
