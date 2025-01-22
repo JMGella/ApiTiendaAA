@@ -42,18 +42,12 @@ public class OrderDetailController {
         return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
-    @GetMapping("/orders/{orderId}/details")
-    public ResponseEntity<List<OrderDetailOutDTO>> getDetailsByOrder(@PathVariable long orderId) throws OrderNotFoundException {
-        logger.info("BEGIN getDetailsByOrder");
-        List<OrderDetailOutDTO> orderDetails = orderDetailService.findByOrder(orderId);
-        logger.info("END getDetailsByOrder");
-        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
-    }
+
 
     @PutMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
-    public ResponseEntity<OrderDetail> updateOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public ResponseEntity<OrderDetailOutDTO> updateOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
         logger.info("BEGIN updateOrderDetail");
-        OrderDetail orderDetail = orderDetailService.update(userId, orderId, detailId, orderDetailIn);
+        OrderDetailOutDTO orderDetail = orderDetailService.update(userId, orderId, detailId, orderDetailIn);
         logger.info("END updateOrderDetail");
         return new ResponseEntity<>(orderDetail, HttpStatus.OK);
     }

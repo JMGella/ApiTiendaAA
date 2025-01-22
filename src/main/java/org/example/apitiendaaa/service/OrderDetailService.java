@@ -35,11 +35,7 @@ public class OrderDetailService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<OrderDetailOutDTO> findByOrder(long orderId) throws OrderNotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-        List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(orderId);
-        return modelMapper.map(orderDetails, new org.modelmapper.TypeToken<List<OrderDetailOutDTO>>() {}.getType());
-    }
+
 
     public OrderDetail add(long userId, long orderId, OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, ProductNotFoundException, UserNotFoundException {
         validateUserAndOrder(userId, orderId);
@@ -92,17 +88,43 @@ public class OrderDetailService {
         return modelMapper.map(orderDetails, new TypeToken<List<OrderDetailOutDTO>>() {}.getType());
     }
 
-    public OrderDetail update(long userId, long orderId, long detailId, OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, ProductNotFoundException, UserNotFoundException {
+    public OrderDetailOutDTO update(long userId, long orderId, long detailId, OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, ProductNotFoundException, UserNotFoundException {
         validateUserAndOrder(userId, orderId);
         OrderDetail orderDetail = orderDetailRepository.findById(detailId).orElseThrow(OrderNotFoundException::new);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-        Product product = productRepository.findById(orderDetailIn.getProductId()).orElseThrow(ProductNotFoundException::new);
-        orderDetail.setProduct(product);
+        Product product = null;
+        if (orderDetailIn.getProductId()>0) {
+            product = productRepository.findById(orderDetailIn.getProductId()).orElseThrow(ProductNotFoundException::new);
+            orderDetail.setProduct(product);
+        } else {
+            product = orderDetail.getProduct();
+        }
         orderDetail.setOrder(order);
-        orderDetail.setQuantity(orderDetailIn.getQuantity());
-        orderDetail.setDiscount(orderDetailIn.getDiscount());
-        orderDetail.setSubtotal(orderDetailIn.getQuantity() * orderDetailIn.getDiscount() * product.getPrice());
-        return orderDetailRepository.save(orderDetail);
+        if (orderDetailIn.getQuantity() >= 0)  {
+            orderDetail.setQuantity(orderDetailIn.getQuantity());
+        }
+        if (orderDetailIn.getDiscount() != null) {
+            orderDetail.setDiscount(orderDetailIn.getDiscount());
+        }
+        if (orderDetailIn.getQuantity() >= 0 || orderDetailIn.getDiscount() != null || orderDetailIn.getProductId() > 0) {
+
+            float subtotal = product.getPrice() * orderDetail.getQuantity();
+            if (orderDetailIn.getDiscount() != null) {
+                subtotal = subtotal - (subtotal * (orderDetail.getDiscount() / 100));
+            }
+            orderDetail.setSubtotal(subtotal);
+
+            List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);
+            Float total = 0f;
+            for( OrderDetail od : orderDetailList) {
+                total = total + od.getSubtotal();
+            }
+            order.setTotal(total);
+        }
+
+        orderDetailRepository.save(orderDetail);
+
+        return modelMapper.map(orderDetail, OrderDetailOutDTO.class);
     }
 
 

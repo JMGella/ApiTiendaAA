@@ -20,9 +20,9 @@ public class OrderDetail {
     @Column(nullable = false)
     @Positive(message = "La cantidad debe ser mayor a 0")
     private int quantity;
-    private float subtotal;
+    private Float subtotal;
     @Column(nullable = false)
-    private float discount;
+    private Float discount;
     @Column
     private LocalDate creationDate;
 
