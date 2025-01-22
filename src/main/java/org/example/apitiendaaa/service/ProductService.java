@@ -2,6 +2,7 @@ package org.example.apitiendaaa.service;
 
 
 import org.example.apitiendaaa.domain.Category;
+import org.example.apitiendaaa.domain.DTO.ProductInDTO;
 import org.example.apitiendaaa.domain.DTO.ProductOutDTO;
 import org.example.apitiendaaa.domain.Product;
 import org.example.apitiendaaa.exception.CategoryNotFoundException;
@@ -27,10 +28,10 @@ public class ProductService {
 
 
     public List<ProductOutDTO> getAll(String name, String price, Boolean active) {
-        List<Product> productList = productRepository.findAll();
-        Double priceDouble = null;
+        List<Product> productList;
+        Float priceFloat = null;
         if (!price.isEmpty()){
-           priceDouble = Double.parseDouble(price);
+           priceFloat = Float.parseFloat(price);
         }
        if(name.isEmpty() && price.isEmpty() && active == null) {
             productList = productRepository.findAll();
@@ -39,18 +40,18 @@ public class ProductService {
             productList = productRepository.findByActive(active);
 
         } else if(name.isEmpty() && active == null) {
-            productList = productRepository.findByPrice(priceDouble);
+            productList = productRepository.findByPrice(priceFloat);
 
         } else if(price.isEmpty() && active == null) {
             productList = productRepository.findByName(name);
         } else if(name.isEmpty()) {
-            productList = productRepository.findByPriceAndActive(priceDouble, active);
+            productList = productRepository.findByPriceAndActive(priceFloat, active);
         } else if(price.isEmpty()) {
             productList = productRepository.findByNameAndActive(name, active);
         } else if(active == null) {
-            productList = productRepository.findByNameAndPrice(name, priceDouble);
+            productList = productRepository.findByNameAndPrice(name, priceFloat);
         } else {
-            productList = productRepository.findByNameAndPriceAndActive(name, priceDouble, active);
+            productList = productRepository.findByNameAndPriceAndActive(name, priceFloat, active);
         }
         return modelMapper.map(productList, new TypeToken<List<ProductOutDTO>>() {}.getType());
     }
@@ -67,17 +68,22 @@ public class ProductService {
         return productRepository.findById(productId).orElseThrow(CategoryNotFoundException::new);
     }
 
-    public Product update(long categoryId, long productId, Product product) throws CategoryNotFoundException, ProductNotFoundException {
+    public Product update(long categoryId, long productId, ProductInDTO product) throws CategoryNotFoundException, ProductNotFoundException {
         Category category = categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new);
         Product productToUpdate = productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
-        productToUpdate.setName(product.getName());
-        productToUpdate.setPrice(product.getPrice());
-        productToUpdate.setCategory(category);
-        productToUpdate.setDescription(product.getDescription());
-        productToUpdate.setActive(product.isActive());
-        productToUpdate.setCreationDate(product.getCreationDate());
-
-        return productRepository.save(product);
+        if(product.getName() != null){
+            productToUpdate.setName(product.getName());
+        }
+        if(product.getPrice() != null){
+            productToUpdate.setPrice(product.getPrice());
+        }
+        if (product.getDescription() != null){
+            productToUpdate.setDescription(product.getDescription());
+        }
+        if (product.getActive() != null) {
+            productToUpdate.setActive(product.getActive());
+        }
+        return productRepository.save(productToUpdate);
     }
 
 

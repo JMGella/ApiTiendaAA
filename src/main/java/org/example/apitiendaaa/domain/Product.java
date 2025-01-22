@@ -26,11 +26,11 @@ public class Product {
     private String description;
     @Column(nullable = false)
     @Positive(message = "El precio debe ser mayor a 0")
-    private float price;
+    private Float price;
     @Column
     private LocalDate creationDate;
     @Column
-    private boolean active;
+    private Boolean active;
 
 
 @ManyToOne

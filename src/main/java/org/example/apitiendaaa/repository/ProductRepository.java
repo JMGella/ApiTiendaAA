@@ -14,18 +14,18 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findByCategory(Category category);
 
-    List<Product> findByPrice(double price);
+    List<Product> findByPrice(Float price);
 
     List<Product> findByName(String name);
 
-    List<Product> findByNameAndPrice(String name, double price);
+    List<Product> findByNameAndPrice(String name, Float price);
 
 
     List<Product> findByActive(Boolean active);
 
-    List<Product> findByPriceAndActive(double price, Boolean active);
+    List<Product> findByPriceAndActive(Float price, Boolean active);
 
     List<Product> findByNameAndActive(String name, Boolean active);
 
-    List<Product> findByNameAndPriceAndActive(String name, double price, Boolean active);
+    List<Product> findByNameAndPriceAndActive(String name, Float price, Boolean active);
 }

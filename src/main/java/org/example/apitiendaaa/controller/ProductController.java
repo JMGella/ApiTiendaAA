@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import org.example.apitiendaaa.domain.DTO.ProductInDTO;
 import org.example.apitiendaaa.domain.DTO.ProductOutDTO;
 import org.example.apitiendaaa.domain.Product;
 import org.example.apitiendaaa.exception.CategoryNotFoundException;
@@ -61,7 +62,7 @@ public class ProductController {
     }
 
     @PutMapping("/categories/{categoryId}/products/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody Product product) throws CategoryNotFoundException, ProductNotFoundException {
+    public ResponseEntity<Product> updateProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody ProductInDTO product) throws CategoryNotFoundException, ProductNotFoundException {
         logger.info("BEGIN updateProduct");
         Product updatedProduct = productService.update(categoryId, productId, product);
         logger.info("END updateProduct");
