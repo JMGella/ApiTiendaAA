@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class OrderOutDTO {
     private long id;
     private String status;
-    private int total;
+    private Float total;
     private int userId;
     private String address;
     private String creationDate;

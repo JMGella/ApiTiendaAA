@@ -35,15 +35,15 @@ public class OrderDetailController {
     }
 
     @GetMapping("/users/{userId}/orders/{orderId}/details")
-    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@PathVariable long productId, @PathVariable long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
+    public ResponseEntity<List<OrderDetailOutDTO>> getDetails(@PathVariable long userId, @PathVariable long orderId, @RequestParam(value = "discount", defaultValue = "0") long discount) throws OrderNotFoundException, UserNotFoundException {
        logger.info("BEGIN getDetails");
-        List<OrderDetailOutDTO> orderDetails = orderDetailService.getAll(productId, orderId, discount);
+        List<OrderDetailOutDTO> orderDetails = orderDetailService.getAll(userId, orderId, discount);
         logger.info("END getDetails");
         return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
     @GetMapping("/orders/{orderId}/details")
-    public ResponseEntity<List<OrderDetailOutDTO>> getDetailsByOrder(@RequestParam long orderId) throws OrderNotFoundException {
+    public ResponseEntity<List<OrderDetailOutDTO>> getDetailsByOrder(@PathVariable long orderId) throws OrderNotFoundException {
         logger.info("BEGIN getDetailsByOrder");
         List<OrderDetailOutDTO> orderDetails = orderDetailService.findByOrder(orderId);
         logger.info("END getDetailsByOrder");
@@ -59,7 +59,7 @@ public class OrderDetailController {
     }
 
     @DeleteMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
-    public ResponseEntity<Void> deleteOrderDetail(@RequestParam long userId, @PathVariable long orderId, @PathVariable long detailId) throws OrderNotFoundException, UserNotFoundException, OrderDetailNotFoundException {
+    public ResponseEntity<Void> deleteOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId) throws OrderNotFoundException, UserNotFoundException, OrderDetailNotFoundException {
         logger.info("BEGIN deleteOrderDetail");
         orderDetailService.delete(userId, orderId, detailId);
         logger.info("END deleteOrderDetail");

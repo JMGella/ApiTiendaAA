@@ -45,15 +45,27 @@ public class OrderDetailService {
         validateUserAndOrder(userId, orderId);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         Product product = productRepository.findById(orderDetailIn.getProductId()).orElseThrow(ProductNotFoundException::new);
-        OrderDetail OrderDetailToSave = modelMapper.map(orderDetailIn, OrderDetail.class);
-        OrderDetailToSave.setOrder(order);
-        OrderDetailToSave.setProduct(product);
-        OrderDetailToSave.setSubtotal(product.getPrice() * orderDetailIn.getQuantity() * (1 - orderDetailIn.getDiscount()));
-        order.setTotal(order.getTotal() + OrderDetailToSave.getSubtotal());
+        OrderDetail orderDetailToSave = new OrderDetail();
+        orderDetailToSave.setQuantity(orderDetailIn.getQuantity());
+        orderDetailToSave.setDiscount(orderDetailIn.getDiscount());
+        orderDetailToSave.setProduct(product);
+        float subtotal = product.getPrice() * orderDetailIn.getQuantity();
+        if (orderDetailIn.getDiscount() > 0) {
+            subtotal = subtotal - (subtotal * (orderDetailIn.getDiscount() / 100));
+        }
+        orderDetailToSave.setSubtotal(subtotal);
+        orderDetailToSave.setCreationDate(LocalDate.now());
+
+        if(order.getTotal() == null) {
+            order.setTotal(0f);
+        }
+        order.setTotal(order.getTotal() + orderDetailToSave.getSubtotal());
         orderRepository.save(order);
-        OrderDetailToSave.setCreationDate(LocalDate.now());
-        orderDetailRepository.save(OrderDetailToSave);
-        return modelMapper.map(OrderDetailToSave, OrderDetail.class);
+        orderDetailToSave.setOrder(order);
+        orderDetailRepository.save(orderDetailToSave);
+
+        return orderDetailToSave;
+
     }
 
 
