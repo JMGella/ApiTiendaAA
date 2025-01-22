@@ -1,0 +1,1193 @@
+openapi: 3.0.0
+info:
+  title: apiTienda
+  version: '1'
+  description: API para gestionar una tienda en línea, incluyendo funcionalidades para manejar usuarios, productos, categorías, pedidos y detalles de pedidos. Permite realizar operaciones CRUD en estas entidades, facilitando la gestión completa de un sistema de comercio electrónico.
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desarrollo local
+
+paths:
+  /categories:
+    get:
+      summary: Obtener todas las categorías
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: active
+          schema:
+            type: boolean
+        - in: query
+          name: creationDate
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de categorías obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Añadir una nueva categoría
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          description: Categoría creada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /categories/{categoryId}:
+    get:
+      summary: Obtener una categoría por ID
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Categoría obtenida con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Actualizar una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Categoría actualizada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Eliminar una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '204':
+          description: Categoría eliminada con éxito
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /products:
+    get:
+      summary: Obtener todos los productos
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: price
+          schema:
+            type: string
+        - in: query
+          name: active
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Lista de productos obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /products/{productId}:
+    get:
+      summary: Obtener un producto por ID
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Producto obtenido con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Eliminar un producto
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '204':
+          description: Producto eliminado con éxito
+        '404':
+          $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /categories/{categoryId}/products:
+    post:
+      summary: Añadir un nuevo producto a una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Producto creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      summary: Obtener productos por categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Lista de productos obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductOutDTO'
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /categories/{categoryId}/products/{productId}:
+    put:
+      summary: Actualizar un producto en una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInDTO'
+      responses:
+        '200':
+          description: Producto actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Categoría o producto no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/CategoryNotFound'
+                  - $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
+  /users:
+    get:
+      summary: Obtener todos los usuarios
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+        - in: query
+          name: active
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Lista de usuarios obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Añadir un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Usuario creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /users/{userId}:
+    get:
+      summary: Obtener un usuario por ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Usuario obtenido con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Actualizar un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuario actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '204':
+          description: Usuario eliminado con éxito
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /orders:
+    get:
+      summary: Obtener todos los pedidos
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: paymentMethod
+          schema:
+            type: string
+        - in: query
+          name: creationDate
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de pedidos obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /orders/{orderId}:
+    get:
+      summary: Obtener un pedido por ID
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Pedido obtenido con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          $ref: '#/components/responses/OrderNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Eliminar un pedido
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '204':
+          description: Pedido eliminado con éxito
+        '404':
+          $ref: '#/components/responses/OrderNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /users/{userId}/orders:
+    post:
+      summary: Añadir un nuevo pedido para un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: Pedido creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      summary: Obtener pedidos de un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      responses:
+        '200':
+          description: Lista de pedidos obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderOutDTO'
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
+  /users/{userId}/orders/{orderId}:
+    put:
+      summary: Actualizar un pedido de un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: Pedido actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Usuario o pedido no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
+  /users/{userId}/orders/{orderId}/details:
+    post:
+      summary: Añadir un detalle a un pedido
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDetailInDTO'
+      responses:
+        '201':
+          description: Detalle de pedido creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Usuario, pedido o producto no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+                  - $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      summary: Obtener detalles de un pedido
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: query
+          name: discount
+          schema:
+            type: number
+            format: float
+        - in: query
+          name: quantity
+          schema:
+            type: number
+            format: float
+        - in: query
+          name: subtotal
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: Lista de detalles de pedido obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDetailOutDTO'
+        '404':
+          description: Usuario o pedido no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /users/{userId}/orders/{orderId}/details/{detailId}:
+    put:
+      summary: Actualizar un detalle de pedido
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: detailId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDetailInDTO'
+      responses:
+        '200':
+          description: Detalle de pedido actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Usuario, pedido, detalle de pedido o producto no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+                  - $ref: '#/components/responses/OrderDetailNotFound'
+                  - $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      summary: Eliminar un detalle de pedido
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: detailId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Detalle de pedido eliminado con éxito
+        '404':
+          description: Usuario, pedido o detalle de pedido no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+                  - $ref: '#/components/responses/OrderDetailNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        description:
+          type: string
+        creationDate:
+          type: string
+          format: date
+        active:
+          type: boolean
+        image:
+          type: string
+      example:
+        id: 1
+        name: "Electrónica"
+        description: "Productos electrónicos y gadgets"
+        creationDate: "2023-01-15"
+        active: true
+        image: "https://example.com/images/electronics.jpg"
+
+    CategoryOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+      example:
+        id: 2
+        name: "Ropa"
+        description: "Moda y accesorios"
+        active: true
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        creationDate:
+          type: string
+          format: date
+        active:
+          type: boolean
+      example:
+        id: 101
+        name: "Smartphone XYZ"
+        description: "Último modelo con cámara de alta resolución"
+        price: 599.99
+        creationDate: "2024-12-01"
+        active: true
+
+    ProductOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        categoryId:
+          type: integer
+          format: long
+      example:
+        id: 102
+        name: "Laptop ABC"
+        price: 1299.99
+        categoryId: 1
+
+    ProductInDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        creationDate:
+          type: string
+          format: date
+        active:
+          type: boolean
+      example:
+        name: "Tablet Pro"
+        description: "Tablet de alta gama para profesionales"
+        price: 799.99
+        creationDate: "2025-01-10"
+        active: true
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        birthDate:
+          type: string
+          format: date
+        active:
+          type: boolean
+        address:
+          type: string
+        phone:
+          type: string
+        creationDate:
+          type: string
+          format: date
+      example:
+        id: 1001
+        name: "María García"
+        email: "maria.garcia@example.com"
+        birthDate: "1990-05-15"
+        active: true
+        address: "Calle Principal 123, Ciudad"
+        phone: "+34 600 123 456"
+        creationDate: "2024-11-30"
+
+    UserOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        name:
+          type: string
+        email:
+          type: string
+        birthDate:
+          type: string
+        active:
+          type: boolean
+        address:
+          type: string
+        phone:
+          type: string
+        creationDate:
+          type: string
+      example:
+        id: 1002
+        name: "Carlos Rodríguez"
+        email: "carlos.rodriguez@example.com"
+        birthDate: "1988-09-20"
+        active: true
+        address: "Avenida Central 45, Pueblo"
+        phone: "+34 600 987 654"
+        creationDate: "2024-12-15"
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        status:
+          type: string
+        total:
+          type: number
+          format: float
+        address:
+          type: string
+        creationDate:
+          type: string
+          format: date
+        paymentMethod:
+          type: string
+      example:
+        id: 5001
+        status: "En proceso"
+        total: 1299.98
+        address: "Calle Comercio 78, Ciudad"
+        creationDate: "2025-01-20"
+        paymentMethod: "Tarjeta de crédito"
+
+    OrderOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        status:
+          type: string
+        total:
+          type: number
+          format: float
+        userId:
+          type: integer
+          format: long
+        address:
+          type: string
+        creationDate:
+          type: string
+        paymentMethod:
+          type: string
+      example:
+        id: 5002
+        status: "Enviado"
+        total: 799.99
+        userId: 1001
+        address: "Avenida Principal 90, Pueblo"
+        creationDate: "2025-01-21"
+        paymentMethod: "PayPal"
+
+    OrderDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        quantity:
+          type: integer
+        subtotal:
+          type: number
+          format: float
+        discount:
+          type: number
+          format: float
+        creationDate:
+          type: string
+          format: date
+      example:
+        id: 10001
+        quantity: 2
+        subtotal: 1199.98
+        discount: 100.00
+        creationDate: "2025-01-20"
+
+    OrderDetailOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: long
+        orderId:
+          type: integer
+          format: long
+        productId:
+          type: integer
+          format: long
+        productName:
+          type: string
+        quantity:
+          type: integer
+        discount:
+          type: number
+          format: float
+        subtotal:
+          type: number
+          format: float
+      example:
+        id: 10002
+        orderId: 5001
+        productId: 101
+        productName: "Smartphone XYZ"
+        quantity: 1
+        discount: 50.00
+        subtotal: 549.99
+
+    OrderDetailInDTO:
+      type: object
+      required:
+        - quantity
+      properties:
+        quantity:
+          type: integer
+        discount:
+          type: number
+          format: float
+        productId:
+          type: integer
+          format: long
+      example:
+        quantity: 3
+        discount: 75.00
+        productId: 102
+
+   
+    CategoryNotFoundException:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "Categoría no encontrada"
+      example:
+        errorcode: 404
+        message: "Categoría no encontrada"
+
+    OrderDetailNotFoundException:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "OrderDetail con id: 123 no encontrado."
+      example:
+        errorcode: 404
+        message: "OrderDetail con id: 123 no encontrado."
+
+    OrderNotFoundException:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "Pedido no encontrado"
+      example:
+        errorcode: 404
+        message: "Pedido no encontrado"
+
+    ProductNotFoundException:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "Producto no encontrado"
+      example:
+        errorcode: 404
+        message: "Producto no encontrado"
+
+    UserNotFoundException:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "El usuario no existe"
+      example:
+        errorcode: 404
+        message: "El usuario no existe"
+
+    ErrorResponse:
+      type: object
+      properties:
+        errorcode:
+          type: integer
+        message:
+          type: string
+        errorMessages:
+          type: object
+          additionalProperties:
+            type: string
+      example:
+        errorcode: 500
+        message: "Internal Server Error"
+        
+
+  responses:
+   BadRequest:
+    description: Solicitud inválida
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/ErrorResponse'
+        examples:
+          BadRequest:
+            value:
+              errorcode: 400
+              message: "Bad Request"
+          ValidationError:
+            value:
+              errorcode: 400
+              message: "Validation Error"
+              errorMessages:
+                name: "El nombre es requerido"
+                email: "El formato del email es inválido"
+
+   CategoryNotFound:
+    description: Categoría no encontrada
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/CategoryNotFoundException'
+
+   ProductNotFound:
+    description: Producto no encontrado
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/ProductNotFoundException'
+
+   UserNotFound:
+    description: El usuario no existe
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/UserNotFoundException'
+
+   OrderNotFound:
+    description: Pedido no encontrado
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/OrderNotFoundException'
+
+   OrderDetailNotFound:
+    description: Detalle de pedido no encontrado
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/OrderDetailNotFoundException'
+
+   InternalServerError:
+    description: Error interno del servidor
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/ErrorResponse'
