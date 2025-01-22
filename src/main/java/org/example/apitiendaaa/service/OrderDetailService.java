@@ -130,7 +130,11 @@ public class OrderDetailService {
 
     public void delete(long userId, long orderId, long detailId) throws UserNotFoundException, OrderNotFoundException, OrderDetailNotFoundException {
         validateUserAndOrder(userId, orderId);
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         OrderDetail orderDetail = orderDetailRepository.findById(detailId).orElseThrow(OrderDetailNotFoundException::new);
+        orderDetail.getSubtotal();
+        order.setTotal(order.getTotal() - orderDetail.getSubtotal());
+        orderRepository.save(order);
         orderDetailRepository.delete(orderDetail);
     }
 
