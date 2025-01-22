@@ -14,13 +14,18 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Long>
     public List<OrderDetail> findByOrderId(long orderId);
 
 
-    List<OrderDetail> findByDiscount(long disccount);
 
-    List<OrderDetail> findByProductId(long productId);
+    List<OrderDetail> findByOrderIdAndDiscount(long orderId, Float discount);
 
-    List<OrderDetail> findByOrderIdAndDiscount(long orderId, long disccount);
+    List<OrderDetail> findByOrderIdAndDiscountAndQuantityAndSubtotal(long orderId, Float discount, Float quantity, Float subtotal);
 
-    List<OrderDetail> findByProductIdAndOrderId(long productId, long orderId);
+    List<OrderDetail> findByOrderIdAndDiscountAndQuantity(long orderId, Float discount, Float quantity);
 
-    List<OrderDetail> findByProductIdAndOrderIdAndDiscount(long productId, long orderId, long disccount);
+    List<OrderDetail> findByOrderIdAndDiscountAndSubtotal(long orderId, Float discount, Float subtotal);
+
+    List<OrderDetail> findByOrderIdAndQuantityAndSubtotal(long orderId, Float quantity, Float subtotal);
+
+    List<OrderDetail> findByOrderIdAndQuantity(long orderId, Float quantity);
+
+    List<OrderDetail> findByOrderIdAndSubtotal(long orderId, Float subtotal);
 }

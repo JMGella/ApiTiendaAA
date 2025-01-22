@@ -67,24 +67,26 @@ public class OrderDetailService {
 
 
 
-    public List<OrderDetailOutDTO> getAll(long productId, long orderId, long discount) {
-        List<OrderDetail> orderDetails;
-
-        if (productId == 0 && orderId == 0 && discount== 0) {
-            orderDetails = (List<OrderDetail>) orderDetailRepository.findAll();
-        } else if (productId == 0 && orderId == 0) {
-            orderDetails = orderDetailRepository.findByDiscount(discount);
-        } else if (productId == 0 && discount == 0) {
-            orderDetails = orderDetailRepository.findByOrderId(orderId);
-        } else if (orderId == 0) {
-            orderDetails = orderDetailRepository.findByProductId(productId);
-        } else if (productId == 0) {
+    public List<OrderDetailOutDTO> getAll(long userId, long orderId, Float discount, Float quantity, Float subtotal) throws OrderNotFoundException, UserNotFoundException {
+        List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(orderId);
+        validateUserAndOrder(userId, orderId);
+        if (discount != null && quantity != null && subtotal != null){
+            orderDetails = orderDetailRepository.findByOrderIdAndDiscountAndQuantityAndSubtotal(orderId, discount, quantity, subtotal);
+        } else if (discount != null && quantity != null) {
+            orderDetails = orderDetailRepository.findByOrderIdAndDiscountAndQuantity(orderId, discount, quantity);
+        } else if (discount != null && subtotal != null) {
+            orderDetails = orderDetailRepository.findByOrderIdAndDiscountAndSubtotal(orderId, discount, subtotal);
+        } else if (quantity != null && subtotal != null) {
+            orderDetails = orderDetailRepository.findByOrderIdAndQuantityAndSubtotal(orderId, quantity, subtotal);
+        } else if (discount != null) {
             orderDetails = orderDetailRepository.findByOrderIdAndDiscount(orderId, discount);
-        } else if (discount == 0) {
-            orderDetails = orderDetailRepository.findByProductIdAndOrderId(productId, orderId);
-        } else {
-            orderDetails = orderDetailRepository.findByProductIdAndOrderIdAndDiscount(productId, orderId, discount);
+        } else if (quantity != null) {
+            orderDetails = orderDetailRepository.findByOrderIdAndQuantity(orderId, quantity);
+        } else if (subtotal != null) {
+            orderDetails = orderDetailRepository.findByOrderIdAndSubtotal(orderId, subtotal);
         }
+
+
         return modelMapper.map(orderDetails, new TypeToken<List<OrderDetailOutDTO>>() {}.getType());
     }
 

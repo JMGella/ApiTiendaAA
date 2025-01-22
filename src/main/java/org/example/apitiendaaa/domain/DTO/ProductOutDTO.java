@@ -11,5 +11,5 @@ public class ProductOutDTO {
     private long id;
     private String name;
     private float price;
-    private float categoryId;
+    private long categoryId;
 }
