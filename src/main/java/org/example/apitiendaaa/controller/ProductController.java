@@ -34,12 +34,20 @@ public class ProductController {
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
 
+    @GetMapping("/categories/{categoryId}/products")
+    public ResponseEntity<List<ProductOutDTO>> getByCategory(@PathVariable long categoryId) throws CategoryNotFoundException {
+        logger.info("BEGIN products getByCategory");
+        List<ProductOutDTO> products = productService.getByCategory(categoryId);
+        logger.info("END products getByCategory");
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     @GetMapping("/products")
     public ResponseEntity<List<ProductOutDTO>> getAll(@RequestParam (value = "name", defaultValue = "") String name,
-                                                      @RequestParam(value = "price", defaultValue = "0") double price,
-                                                      @RequestParam(value = "category", defaultValue = "0") long categoryId) throws CategoryNotFoundException {
+                                                      @RequestParam(value = "price", defaultValue = "") String price,
+                                                      @RequestParam(value = "active", defaultValue = "") Boolean active) throws CategoryNotFoundException {
         logger.info("BEGIN products getAll");
-        List<ProductOutDTO> products = productService.getAll(name, price, categoryId);
+        List<ProductOutDTO> products = productService.getAll(name, price, active);
         logger.info("END products getAll");
         return new ResponseEntity<>(products, HttpStatus.OK);
     }

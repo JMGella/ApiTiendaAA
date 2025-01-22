@@ -22,29 +22,35 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
 
-    public List<ProductOutDTO> getAll(String name, double price, long categoryid) throws CategoryNotFoundException {
-
-        List<Product> productList;
-        Category category = categoryRepository.findById(categoryid).orElseThrow(CategoryNotFoundException::new);
-        if(name.isEmpty() && price == 0 && categoryid == 0) {
+    public List<ProductOutDTO> getAll(String name, String price, Boolean active) {
+        List<Product> productList = productRepository.findAll();
+        Double priceDouble = null;
+        if (!price.isEmpty()){
+           priceDouble = Double.parseDouble(price);
+        }
+       if(name.isEmpty() && price.isEmpty() && active == null) {
             productList = productRepository.findAll();
-        } else if(name.isEmpty() && price == 0) {
-            productList = productRepository.findByCategory(category);
-        } else if(name.isEmpty() && categoryid == 0) {
-            productList = productRepository.findByPrice(price);
-        } else if(price == 0 && categoryid == 0) {
+
+        } else if(name.isEmpty() && price.isEmpty()) {
+            productList = productRepository.findByActive(active);
+
+        } else if(name.isEmpty() && active == null) {
+            productList = productRepository.findByPrice(priceDouble);
+
+        } else if(price.isEmpty() && active == null) {
             productList = productRepository.findByName(name);
         } else if(name.isEmpty()) {
-            productList = productRepository.findByPriceAndCategory(price, category);
-        } else if(price == 0) {
-            productList = productRepository.findByNameAndCategory(name, category);
-        } else if(categoryid == 0) {
-            productList = productRepository.findByNameAndPrice(name, price);
+            productList = productRepository.findByPriceAndActive(priceDouble, active);
+        } else if(price.isEmpty()) {
+            productList = productRepository.findByNameAndActive(name, active);
+        } else if(active == null) {
+            productList = productRepository.findByNameAndPrice(name, priceDouble);
         } else {
-            productList = productRepository.findByNameAndPriceAndCategory(name, price, category);
+            productList = productRepository.findByNameAndPriceAndActive(name, priceDouble, active);
         }
         return modelMapper.map(productList, new TypeToken<List<ProductOutDTO>>() {}.getType());
     }
@@ -78,5 +84,11 @@ public class ProductService {
     public void delete(long productId) throws ProductNotFoundException {
         Product product = productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
         productRepository.delete(product);
+    }
+
+    public List<ProductOutDTO> getByCategory(long categoryId) throws CategoryNotFoundException {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new);
+        List<Product> products = productRepository.findByCategory(category);
+        return modelMapper.map(products, new TypeToken<List<ProductOutDTO>>() {}.getType());
     }
 }

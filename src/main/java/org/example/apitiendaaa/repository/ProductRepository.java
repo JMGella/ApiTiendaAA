@@ -18,11 +18,14 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findByName(String name);
 
-    List<Product> findByPriceAndCategory(double price, Category category);
-
-    List<Product> findByNameAndCategory(String name, Category category);
-
     List<Product> findByNameAndPrice(String name, double price);
 
-    List<Product> findByNameAndPriceAndCategory(String name, double price, Category category);
+
+    List<Product> findByActive(Boolean active);
+
+    List<Product> findByPriceAndActive(double price, Boolean active);
+
+    List<Product> findByNameAndActive(String name, Boolean active);
+
+    List<Product> findByNameAndPriceAndActive(String name, double price, Boolean active);
 }

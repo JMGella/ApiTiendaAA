@@ -3,6 +3,9 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+apitienda.db.mv.db
+logs/
+*.log
 
 ### STS ###
 .apt_generated
