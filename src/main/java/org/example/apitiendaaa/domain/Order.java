@@ -21,8 +21,7 @@ public class Order {
     private long id;
     @Column(nullable = false)
     private String status;
-    @Column(nullable = false)
-    private int total;
+    private Float total;
     @Column(nullable = false)
     private String address;
     @Column

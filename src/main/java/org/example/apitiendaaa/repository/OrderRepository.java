@@ -16,17 +16,23 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
   List<Order> findByCreationDate(LocalDate creationLocalDate);
 
-  List<Order> findByTotal(double totaldouble);
+
 
   List<Order> findByStatus(String status);
 
-  List<Order> findByTotalAndCreationDate(double totaldouble, LocalDate creationLocalDate);
+
 
   List<Order> findByStatusAndCreationDate(String status, LocalDate creationLocalDate);
 
-  List<Order> findByStatusAndTotal(String status, double totaldouble);
 
-  List<Order> findByStatusAndTotalAndCreationDate(String status, double totaldouble, LocalDate creationLocalDate);
 
   List<Order> findByUser(User user);
+
+  List<Order> findByPaymentMethod(String paymentMethod);
+
+  List<Order> findByPaymentMethodAndCreationDate(String paymentMethod, LocalDate creationLocalDate);
+
+  List<Order> findByStatusAndPaymentMethod(String status, String paymentMethod);
+
+  List<Order> findByStatusAndPaymentMethodAndCreationDate(String status, String paymentMethod, LocalDate creationLocalDate);
 }

@@ -28,10 +28,10 @@ public class OrderController {
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderOutDTO>> getAll(@RequestParam(value = "status", defaultValue = "") String status,
-                                    @RequestParam(value = "total", defaultValue = "") String total,
+                                    @RequestParam(value = "paymentMethod", defaultValue = "") String paymentMethod,
                                     @RequestParam(value = "creationDate", defaultValue = "") String creationDate) {
         logger.info("BEGIN orders getAll");
-        List<OrderOutDTO> orders = orderService.getAll(status, total, creationDate);
+        List<OrderOutDTO> orders = orderService.getAll(status, paymentMethod, creationDate);
         logger.info("END orders getAll");
         return new ResponseEntity<>(orders, HttpStatus.OK);
 

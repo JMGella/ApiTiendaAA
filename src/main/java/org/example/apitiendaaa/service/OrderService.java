@@ -21,31 +21,33 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
     private ModelMapper modelMapper;
 
-    public List<OrderOutDTO> getAll(String status, String total, String creationDate) {
+    public List<OrderOutDTO> getAll(String status, String paymentMethod, String creationDate) {
 
         List<Order> allOrders;
-        double totaldouble = Double.parseDouble(total);
-        LocalDate creationLocalDate = LocalDate.parse(creationDate);
-        if (status.isEmpty() && total.isEmpty() && creationDate.isEmpty()) {
+        LocalDate creationLocalDate = null;
+        if (!creationDate.isEmpty()) {
+            creationLocalDate = LocalDate.parse(creationDate);
+        }
+        if (status.isEmpty() && paymentMethod.isEmpty() && creationDate.isEmpty()) {
             allOrders = orderRepository.findAll();
-        } else if (status.isEmpty() && total.isEmpty()) {
+        } else if (status.isEmpty() && paymentMethod.isEmpty()) {
             allOrders = orderRepository.findByCreationDate(creationLocalDate);
         } else if (status.isEmpty() && creationDate.isEmpty()) {
 
-            allOrders = orderRepository.findByTotal(totaldouble);
-        } else if (total.isEmpty() && creationDate.isEmpty()) {
+            allOrders = orderRepository.findByPaymentMethod(paymentMethod);
+        } else if (paymentMethod.isEmpty() && creationDate.isEmpty()) {
             allOrders = orderRepository.findByStatus(status);
         } else if (status.isEmpty()) {
-            allOrders = orderRepository.findByTotalAndCreationDate(totaldouble, creationLocalDate);
-        } else if (total.isEmpty()) {
+            allOrders = orderRepository.findByPaymentMethodAndCreationDate(paymentMethod, creationLocalDate);
+        } else if (paymentMethod.isEmpty()) {
             allOrders = orderRepository.findByStatusAndCreationDate(status, creationLocalDate);
         } else if (creationDate.isEmpty()) {
-            allOrders = orderRepository.findByStatusAndTotal(status, totaldouble);
+            allOrders = orderRepository.findByStatusAndPaymentMethod(status, paymentMethod);
         } else {
-            allOrders = orderRepository.findByStatusAndTotalAndCreationDate(status, totaldouble, creationLocalDate);
+            allOrders = orderRepository.findByStatusAndPaymentMethodAndCreationDate(status, paymentMethod, creationLocalDate);
         }
         return modelMapper.map(allOrders, new TypeToken<List<OrderOutDTO>>() {}.getType());
 
