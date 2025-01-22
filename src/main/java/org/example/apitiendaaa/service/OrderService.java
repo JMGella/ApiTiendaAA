@@ -76,12 +76,17 @@ public class OrderService {
     public Order update(long userId, long orderId, Order order) throws UserNotFoundException, OrderNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Order orderToUpdate = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-        orderToUpdate.setCreationDate(order.getCreationDate());
-        orderToUpdate.setStatus(order.getStatus());
-        orderToUpdate.setTotal(order.getTotal());
-        orderToUpdate.setUser(user);
-        orderToUpdate.setAddress(order.getAddress());
-        orderToUpdate.setPaymentMethod(order.getPaymentMethod());
+        if (order.getStatus() != null) {
+            orderToUpdate.setStatus(order.getStatus());
+        }
+        if (order.getAddress() != null) {
+            orderToUpdate.setAddress(order.getAddress());
+        }
+        if (order.getPaymentMethod() !=null){
+            orderToUpdate.setPaymentMethod(order.getPaymentMethod());
+
+        }
+
         return orderRepository.save(orderToUpdate);
     }
 

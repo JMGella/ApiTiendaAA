@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
-  public List<Order> findAll();
+   List<Order> findAll();
 
 
   List<Order> findByCreationDate(LocalDate creationLocalDate);
