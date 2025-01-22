@@ -9,23 +9,21 @@ import java.util.List;
 @Repository
 public interface OrderDetailRepository extends CrudRepository<OrderDetail, Long> {
 
-    public List<OrderDetail> findAll();
+     List<OrderDetail> findAll();
     
-    public List<OrderDetail> findByOrderId(long orderId);
-
-
+     List<OrderDetail> findByOrderId(long order_id);
 
     List<OrderDetail> findByOrderIdAndDiscount(long orderId, Float discount);
 
-    List<OrderDetail> findByOrderIdAndDiscountAndQuantityAndSubtotal(long orderId, Float discount, Float quantity, Float subtotal);
+    List<OrderDetail> findByOrderIdAndDiscountAndQuantityAndSubtotal(long order_id, Float discount, Float quantity, Float subtotal);
 
-    List<OrderDetail> findByOrderIdAndDiscountAndQuantity(long orderId, Float discount, Float quantity);
+    List<OrderDetail> findByOrderIdAndDiscountAndQuantity(long order_id, Float discount, Float quantity);
 
-    List<OrderDetail> findByOrderIdAndDiscountAndSubtotal(long orderId, Float discount, Float subtotal);
+    List<OrderDetail> findByOrderIdAndDiscountAndSubtotal(long order_id, Float discount, Float subtotal);
 
-    List<OrderDetail> findByOrderIdAndQuantityAndSubtotal(long orderId, Float quantity, Float subtotal);
+    List<OrderDetail> findByOrderIdAndQuantityAndSubtotal(long order_id, Float quantity, Float subtotal);
 
-    List<OrderDetail> findByOrderIdAndQuantity(long orderId, Float quantity);
+    List<OrderDetail> findByOrderIdAndQuantity(long order_id, Float quantity);
 
-    List<OrderDetail> findByOrderIdAndSubtotal(long orderId, Float subtotal);
+    List<OrderDetail> findByOrderIdAndSubtotal(long order_id, Float subtotal);
 }

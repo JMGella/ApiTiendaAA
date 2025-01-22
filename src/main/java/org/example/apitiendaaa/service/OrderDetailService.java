@@ -68,8 +68,10 @@ public class OrderDetailService {
 
 
     public List<OrderDetailOutDTO> getAll(long userId, long orderId, Float discount, Float quantity, Float subtotal) throws OrderNotFoundException, UserNotFoundException {
-        List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(orderId);
         validateUserAndOrder(userId, orderId);
+
+            List<OrderDetail> orderDetails;
+
         if (discount != null && quantity != null && subtotal != null){
             orderDetails = orderDetailRepository.findByOrderIdAndDiscountAndQuantityAndSubtotal(orderId, discount, quantity, subtotal);
         } else if (discount != null && quantity != null) {
@@ -84,8 +86,9 @@ public class OrderDetailService {
             orderDetails = orderDetailRepository.findByOrderIdAndQuantity(orderId, quantity);
         } else if (subtotal != null) {
             orderDetails = orderDetailRepository.findByOrderIdAndSubtotal(orderId, subtotal);
+        } else {
+            orderDetails = orderDetailRepository.findByOrderId(orderId);
         }
-
 
         return modelMapper.map(orderDetails, new TypeToken<List<OrderDetailOutDTO>>() {}.getType());
     }
