@@ -16,7 +16,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"active\": true,\r\n  \"address\": \"123 Main St, Springfield\",\r\n  \"phone\": \"1234567890\"\r\n\r\n}",
+					"raw": "{\r\n\"name\": \"María García\",\r\n\"email\": \"maria.garcia@example.com\",\r\n\"birthDate\": \"1990-05-15\",\r\n\"active\": true,\r\n\"address\": \"Calle Principal 123, Ciudad\",\r\n\"phone\": \"600123456\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,7 +103,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/33",
+					"raw": "http://localhost:8080/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -111,7 +111,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"33"
+						"{{userId}}"
 					]
 				}
 			},
@@ -135,7 +135,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/users/33",
+					"raw": "http://localhost:8080/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -143,7 +143,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"33"
+						"{{userId}}"
 					]
 				}
 			},
@@ -159,7 +159,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"casa\",\r\n  \"description\": \"cosas casa\",\r\n  \"active\": true,\r\n  \"image\": \"url\"\r\n\r\n}",
+					"raw": "{\r\n\"name\": \"Electrónica\",\r\n\"description\": \"Productos electrónicos y gadgets\",\r\n\"creationDate\": \"2023-01-15\",\r\n\"active\": true,\r\n\"image\": \"https://example.com/images/electronics.jpg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -246,7 +246,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/categories/1",
+					"raw": "http://localhost:8080/categories/{{categoryId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -254,7 +254,7 @@
 					"port": "8080",
 					"path": [
 						"categories",
-						"1"
+						"{{categoryId}}"
 					]
 				}
 			},
@@ -278,7 +278,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/categories/1",
+					"raw": "http://localhost:8080/categories/{{categoryId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -286,7 +286,7 @@
 					"port": "8080",
 					"path": [
 						"categories",
-						"1"
+						"{{categoryId}}"
 					]
 				}
 			},
@@ -302,7 +302,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Sample Product\",\r\n    \"description\": \"This is a sample product description\",\r\n    \"price\": 25.99,\r\n    \"active\": true\r\n}",
+					"raw": "\r\n{\r\n\"name\": \"Smartphone XYZ\",\r\n\"description\": \"Último modelo con cámara de alta resolución\",\r\n\"price\": 599.99,\r\n\"creationDate\": \"2024-12-01\",\r\n\"active\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -696,7 +696,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"quantity\": 3,\r\n    \"discount\": 10.5,\r\n    \"productId\": 1\r\n}",
+					"raw": "\r\n{\r\n\"quantity\": 1,\r\n\"discount\": 0,\r\n\"productId\": 33\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
