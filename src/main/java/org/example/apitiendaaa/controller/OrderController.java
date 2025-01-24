@@ -70,6 +70,14 @@ public class OrderController {
         return new ResponseEntity<>(ordertoupdate, HttpStatus.OK);
     }
 
+    @PatchMapping
+    public ResponseEntity<Order> patchOrder(@PathVariable long userId, @PathVariable long orderId, @RequestBody Order order) throws UserNotFoundException, OrderNotFoundException {
+        logger.info("BEGIN patchOrder");
+        Order ordertoupdate = orderService.update(userId, orderId, order);
+        logger.info("END patchOrder");
+        return new ResponseEntity<>(ordertoupdate, HttpStatus.OK);
+    }
+
     @DeleteMapping("/orders/{orderId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable long orderId) throws OrderNotFoundException {
         logger.info("BEGIN deleteOrder");

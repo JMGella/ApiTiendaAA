@@ -65,6 +65,14 @@ public class CategoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/categories/{categoryId}")
+    public ResponseEntity<Category> patchCategory(@PathVariable long categoryId, @RequestBody Category category) throws CategoryNotFoundException {
+        logger.info("BEGIN categories patchCategory");
+        Category updatedCategory = categoryService.update(categoryId, category);
+        logger.info("END categories patchCategory");
+        return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
+    }
+
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCategoryNotFoundException(CategoryNotFoundException exception) {
         ErrorResponse error = ErrorResponse.generalError(404, exception.getMessage());

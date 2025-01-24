@@ -69,6 +69,14 @@ public class ProductController {
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
+    @PatchMapping("/categories/{categoryId}/products/{productId}")
+    public ResponseEntity<Product> patchProduct(@PathVariable long categoryId, @PathVariable long productId, @RequestBody ProductInDTO product) throws CategoryNotFoundException, ProductNotFoundException {
+        logger.info("BEGIN patchProduct");
+        Product updatedProduct = productService.update(categoryId, productId, product);
+        logger.info("END patchProduct");
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
+
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable long productId) throws ProductNotFoundException {
         logger.info("BEGIN deleteProduct");

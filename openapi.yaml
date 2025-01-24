@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   title: apiTienda
-  version: '1'
+  version: '1.1'
   description: API para gestionar una tienda en línea, incluyendo funcionalidades para manejar usuarios, productos, categorías, pedidos y detalles de pedidos. Permite realizar operaciones CRUD en estas entidades, facilitando la gestión completa de un sistema de comercio electrónico.
 
 servers:
   - url: http://localhost:8080
-    description: Servidor de desarrollo local
+    description: Servidor local
 
 paths:
   /categories:
@@ -80,6 +80,34 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
+      summary: Actualizar una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: Categoría actualizada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/CategoryNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
       summary: Actualizar una categoría
       parameters:
         - in: path
@@ -245,7 +273,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
   /categories/{categoryId}/products/{productId}:
-    put:
+
+   put:
       summary: Actualizar un producto en una categoría
       parameters:
         - in: path
@@ -285,7 +314,46 @@ paths:
                   - $ref: '#/components/responses/ProductNotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-
+   patch:
+      summary: Actualizar un producto en una categoría
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInDTO'
+      responses:
+        '200':
+          description: Producto actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Categoría o producto no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/CategoryNotFound'
+                  - $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   /users:
     get:
@@ -385,6 +453,36 @@ paths:
           $ref: '#/components/responses/UserNotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
+    patch:
+      summary: Actualizar un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuario actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/UserNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
     delete:
       summary: Eliminar un usuario
       parameters:
@@ -564,7 +662,46 @@ paths:
                   - $ref: '#/components/responses/OrderNotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-
+    patch:
+      summary: Actualizar un pedido de un usuario
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: Pedido actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Usuario o pedido no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   /users/{userId}/orders/{orderId}/details:
     post:
@@ -708,6 +845,54 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
+    patch:
+      summary: Actualizar un detalle de pedido
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+            format: long
+        - in: path
+          name: detailId
+          required: true
+          schema:
+            type: integer
+            format: long
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDetailInDTO'
+      responses:
+        '200':
+          description: Detalle de pedido actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailOutDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Usuario, pedido, detalle de pedido o producto no encontrado
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/UserNotFound'
+                  - $ref: '#/components/responses/OrderNotFound'
+                  - $ref: '#/components/responses/OrderDetailNotFound'
+                  - $ref: '#/components/responses/ProductNotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       summary: Eliminar un detalle de pedido
       parameters:

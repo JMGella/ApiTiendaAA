@@ -54,6 +54,14 @@ public class OrderDetailController {
         return new ResponseEntity<>(orderDetail, HttpStatus.OK);
     }
 
+    @PatchMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
+    public ResponseEntity<OrderDetailOutDTO> patchOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+        logger.info("BEGIN patchOrderDetail");
+        OrderDetailOutDTO orderDetail = orderDetailService.update(userId, orderId, detailId, orderDetailIn);
+        logger.info("END patchOrderDetail");
+        return new ResponseEntity<>(orderDetail, HttpStatus.OK);
+    }
+
     @DeleteMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
     public ResponseEntity<Void> deleteOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId) throws OrderNotFoundException, UserNotFoundException, OrderDetailNotFoundException {
         logger.info("BEGIN deleteOrderDetail");
