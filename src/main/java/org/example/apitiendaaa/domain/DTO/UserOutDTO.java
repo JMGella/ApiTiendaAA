@@ -17,5 +17,7 @@ public class UserOutDTO {
     private String address;
     private String phone;
     private String creationDate;
+    private String latitude;
+    private String longitude;
 
 }

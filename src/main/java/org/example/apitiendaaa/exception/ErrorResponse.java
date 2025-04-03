@@ -32,4 +32,8 @@ public class ErrorResponse {
         return new ErrorResponse(errors);
     }
 
+    public ErrorResponse() {
+
+    }
+
 }

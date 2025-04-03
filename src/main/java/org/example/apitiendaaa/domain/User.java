@@ -36,9 +36,15 @@ public class User {
     private String phone;
     @Column
     private LocalDate creationDate;
+    @Column
+    private String latitude;
+    @Column
+    private String longitude;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "user-orders")
     private List<Order> orders = new ArrayList<>();
+
+
 
 }

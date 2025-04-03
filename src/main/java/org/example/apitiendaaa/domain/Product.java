@@ -31,6 +31,8 @@ public class Product {
     private LocalDate creationDate;
     @Column
     private Boolean active;
+    @Column
+    private String image;
 
 
 @ManyToOne

@@ -29,7 +29,7 @@ public class Category {
     @Column
     private String image;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "category-products")
     private List<Product> products = new ArrayList<>();
 }

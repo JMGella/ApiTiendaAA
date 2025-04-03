@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import jakarta.validation.Valid;
 import org.example.apitiendaaa.domain.DTO.ProductInDTO;
 import org.example.apitiendaaa.domain.DTO.ProductOutDTO;
 import org.example.apitiendaaa.domain.Product;
@@ -28,7 +29,7 @@ public class ProductController {
     private final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @PostMapping("/categories/{categoryId}/products")
-    public ResponseEntity<Product> addProduct(@PathVariable long categoryId, @RequestBody Product product) throws CategoryNotFoundException {
+    public ResponseEntity<Product> addProduct(@PathVariable long categoryId, @RequestBody @Valid Product product) throws CategoryNotFoundException {
         logger.info("BEGIN addProduct");
         Product newProduct = productService.add(categoryId, product);
         logger.info("END addProduct");
@@ -54,9 +55,9 @@ public class ProductController {
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable long productId) throws CategoryNotFoundException {
+    public ResponseEntity<ProductOutDTO> getProduct(@PathVariable long productId) throws CategoryNotFoundException {
         logger.info("BEGIN getProduct");
-        Product product = productService.get(productId);
+        ProductOutDTO product = productService.get(productId);
         logger.info("END getProduct");
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
