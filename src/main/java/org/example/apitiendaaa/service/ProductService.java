@@ -64,8 +64,8 @@ public class ProductService {
 
     }
 
-    public ProductOutDTO get(long productId) throws CategoryNotFoundException {
-        Product product = productRepository.findById(productId).orElseThrow(CategoryNotFoundException::new);
+    public ProductOutDTO get(long productId) throws ProductNotFoundException {
+        Product product = productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
         return modelMapper.map(product, ProductOutDTO.class);
     }
 

@@ -55,7 +55,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<ProductOutDTO> getProduct(@PathVariable long productId) throws CategoryNotFoundException {
+    public ResponseEntity<ProductOutDTO> getProduct(@PathVariable long productId) throws ProductNotFoundException {
         logger.info("BEGIN getProduct");
         ProductOutDTO product = productService.get(productId);
         logger.info("END getProduct");
