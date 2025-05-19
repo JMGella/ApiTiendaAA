@@ -69,6 +69,7 @@ public class UserServiceTests {
         assertEquals(1, userlist.size());
         assertEquals(1, userOutDTOList.size());
         assertEquals("Juan", userlist.get(0).getName());
+        assertEquals("Juan", userOutDTOList.get(0).getName());
 
 
         verify(userRepository,times(1)).findByName("Juan");
@@ -95,6 +96,28 @@ public class UserServiceTests {
         verify(userRepository,times(1)).findByEmail("email");
     }
 
+    @Test
+    public void testGetAllActive(){
+        List<User> userlist = List.of(new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null)
+        );
+
+        List<UserOutDTO> userOutDTOList = List.of(new UserOutDTO(1, "Juan", "email", null, true, "address", "phone",null, "latitude", "longitude")
+        );
+
+        when(userRepository.findByActive(true)).thenReturn(userlist);
+        when(modelMapper.map(userlist, new TypeToken<List<UserOutDTO>>() {}.getType())).thenReturn(userOutDTOList);
+
+        userService.getAll("", "",  true);
+
+        assertEquals(1, userlist.size());
+        assertEquals(1, userOutDTOList.size());
+        assertEquals("Juan", userlist.get(0).getName());
+
+
+        verify(userRepository,times(1)).findByActive(true);
+    }
+
+
 
 
     @Test
@@ -103,10 +126,10 @@ public class UserServiceTests {
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        userService.get(1L);
+        User actualUser = userService.get(1L);
 
-        assertEquals("Juan", user.getName());
-        assertEquals("email", user.getEmail());
+        assertEquals("Juan", actualUser.getName());
+        assertEquals("email", actualUser.getEmail());
 
         verify(userRepository,times(1)).findById(1L);
 
