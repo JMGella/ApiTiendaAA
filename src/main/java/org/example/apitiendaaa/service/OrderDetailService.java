@@ -145,7 +145,7 @@ public class OrderDetailService {
 
 
 
-    private void validateUserAndOrder (long userId, long orderId) throws UserNotFoundException, OrderNotFoundException {
+    public void validateUserAndOrder (long userId, long orderId) throws UserNotFoundException, OrderNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         if (order.getUser().getId() != user.getId()) {
