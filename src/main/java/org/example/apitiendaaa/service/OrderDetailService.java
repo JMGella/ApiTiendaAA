@@ -137,7 +137,6 @@ public class OrderDetailService {
         validateUserAndOrder(userId, orderId);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         OrderDetail orderDetail = orderDetailRepository.findById(detailId).orElseThrow(OrderDetailNotFoundException::new);
-        orderDetail.getSubtotal();
         order.setTotal(order.getTotal() - orderDetail.getSubtotal());
         orderRepository.save(order);
         orderDetailRepository.delete(orderDetail);
@@ -145,7 +144,7 @@ public class OrderDetailService {
 
 
 
-    private void validateUserAndOrder (long userId, long orderId) throws UserNotFoundException, OrderNotFoundException {
+    public void validateUserAndOrder (long userId, long orderId) throws UserNotFoundException, OrderNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         if (order.getUser().getId() != user.getId()) {

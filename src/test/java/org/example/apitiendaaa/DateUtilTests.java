@@ -18,6 +18,8 @@ public class DateUtilTests {
         LocalDate expectedLocalDate = LocalDate.of(2021, 1, 1);
         assertEquals(expectedLocalDate, actualLocalDate);
 
+
+
     }
 
     @Test
@@ -31,6 +33,7 @@ public class DateUtilTests {
         assertEquals(9, days);
         days = DateUtil.getDaysBetweenDates(startDate, startDate);
         assertEquals(0, days);
+
     }
 
 }
