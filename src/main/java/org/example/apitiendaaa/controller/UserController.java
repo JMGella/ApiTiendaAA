@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import jakarta.validation.Valid;
 import org.example.apitiendaaa.domain.DTO.UserOutDTO;
 import org.example.apitiendaaa.domain.User;
 import org.example.apitiendaaa.exception.ErrorResponse;
@@ -27,7 +28,7 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         logger.info("BEGIN addUser");
         User newUser = userService.add(user);
         logger.info("END addUser");

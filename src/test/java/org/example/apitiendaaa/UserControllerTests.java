@@ -44,7 +44,8 @@ public class UserControllerTests {
      when(userService.getAll("","",false)).thenReturn(users);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl))
+        MvcResult result = mockMvc.perform(get(endpointUrl)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -68,7 +69,8 @@ public class UserControllerTests {
         when(userService.getAll("Juan","",false)).thenReturn(users);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("name", "Juan"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("name", "Juan")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -89,7 +91,8 @@ public class UserControllerTests {
 
         when(userService.getAll("", "email", false)).thenReturn(users);
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("email", "email"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("email", "email")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -111,7 +114,8 @@ public class UserControllerTests {
 
         when(userService.getAll("", "", true)).thenReturn(users);
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("active", "true"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("active", "true")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -136,7 +140,8 @@ public class UserControllerTests {
         when(userService.get(1)).thenReturn(user);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl, "1"))
+        MvcResult result = mockMvc.perform(get(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -158,7 +163,8 @@ public class UserControllerTests {
         when(userService.get(1)).thenThrow(new UserNotFoundException());
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl, "1"))
+        MvcResult result = mockMvc.perform(get(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andReturn();
 
@@ -177,13 +183,16 @@ public class UserControllerTests {
     @Test
     public void testAddUserReturnOk() throws Exception {
         String endpointUrl = "/users";
-        User user = new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null);
+        User user = new User(1, "Juan", "email@email.com", null, true, "address", "6666666", null, "latitude", "longitude", null);
 
         when(userService.add(user)).thenReturn(user);
 
+        String body = objectmapper.writeValueAsString(user);
+
         MvcResult result = mockMvc.perform(post(endpointUrl)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectmapper.writeValueAsString(user)))
+                        .accept(MediaType.APPLICATION_JSON)
+                .content(body))
                  .andExpect(status().isCreated())
                 .andReturn();
 
@@ -194,7 +203,7 @@ public class UserControllerTests {
         assertNotNull(userResult);
         assertEquals(201, result.getResponse().getStatus());
         assertEquals("Juan", userResult.getName());
-        assertEquals("email", userResult.getEmail());
+        assertEquals("email@email.com", userResult.getEmail());
         assertEquals("address", userResult.getAddress());
 
     }
@@ -202,12 +211,13 @@ public class UserControllerTests {
     @Test
     public void testAddUserReturnBadRequest() throws Exception{
         String endpointUrl = "/users";
-        User user = new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null);
+        User user = new User(1, null, null, null, true, "address", "phone", null, "latitude", "longitude", null);
 
-        when(userService.add(user)).thenThrow(new UserNotFoundException());
+        String body = objectmapper.writeValueAsString(user);
 
         MvcResult result = mockMvc.perform(post(endpointUrl)
                 .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                 .content(objectmapper.writeValueAsString(user)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
@@ -218,7 +228,10 @@ public class UserControllerTests {
 
         assertNotNull(errorResult);
         assertEquals(400, errorResult.getErrorcode());
-        assertEquals("", errorResult.getMessage());
+        assertEquals("Bad Request", errorResult.getMessage());
 
     }
+
+
+
 }

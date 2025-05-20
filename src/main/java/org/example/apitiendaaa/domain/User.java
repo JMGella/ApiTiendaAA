@@ -3,6 +3,7 @@ package org.example.apitiendaaa.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String name;
     @Column(nullable = false)
     @Email(message = "El formato de correo no es válido")
