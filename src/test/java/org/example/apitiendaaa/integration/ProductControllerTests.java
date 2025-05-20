@@ -1,4 +1,4 @@
-package org.example.apitiendaaa;
+package org.example.apitiendaaa.integration;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
