@@ -137,7 +137,6 @@ public class OrderDetailService {
         validateUserAndOrder(userId, orderId);
         Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         OrderDetail orderDetail = orderDetailRepository.findById(detailId).orElseThrow(OrderDetailNotFoundException::new);
-        orderDetail.getSubtotal();
         order.setTotal(order.getTotal() - orderDetail.getSubtotal());
         orderRepository.save(order);
         orderDetailRepository.delete(orderDetail);
