@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
@@ -31,7 +33,7 @@ public class UserControllerTests {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectmapper;
-    @MockBean
+    @MockitoBean
     private UserService userService;
 
     @Test
@@ -53,7 +55,79 @@ public class UserControllerTests {
         assertNotNull(userResult);
         assertEquals(2, userResult.size());
         assertEquals("Juan", userResult.get(0).getName());
+        assertEquals("Pedro", userResult.get(1).getName());
     }
+
+
+
+    @Test
+    public void testGetAllByNameReturnOk() throws Exception {
+        String endpointUrl = "/users";
+        List <UserOutDTO> users = List.of(new UserOutDTO(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude"),
+                new UserOutDTO(2, "Juan", "email", null, true, "address", "phone",  null, "latitude", "longitude"));
+
+        when(userService.getAll("Juan","",false)).thenReturn(users);
+
+
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("name", "Juan"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+        List<UserOutDTO> userResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(userResult);
+        assertEquals(2, userResult.size());
+        assertEquals("Juan", userResult.get(0).getName());
+        assertEquals("Juan", userResult.get(1).getName());
+    }
+
+    @Test
+    public void testGetAllByEmailReturnOk() throws Exception {
+        String endpointUrl = "/users";
+        List <UserOutDTO> users = List.of(new UserOutDTO(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude"),
+                new UserOutDTO(2, "Pedro", "email", null, true, "address", "phone",  null, "latitude", "longitude"));
+
+        when(userService.getAll("", "email", false)).thenReturn(users);
+
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("email", "email"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        List<UserOutDTO> userResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(userResult);
+        assertEquals(2, userResult.size());
+        assertEquals("Juan", userResult.get(0).getName());
+        assertEquals("Pedro", userResult.get(1).getName());
+    }
+
+    @Test
+    public void testGetAllByActiveReturnOk() throws Exception {
+        String endpointUrl = "/users";
+        List <UserOutDTO> users = List.of(new UserOutDTO(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude"),
+                new UserOutDTO(2, "Pedro", "email", null, true, "address", "phone",  null, "latitude", "longitude"));
+
+        when(userService.getAll("", "", true)).thenReturn(users);
+
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("active", "true"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        List<UserOutDTO> userResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(userResult);
+        assertEquals(2, userResult.size());
+        assertEquals("Juan", userResult.get(0).getName());
+        assertEquals("Pedro", userResult.get(1).getName());
+    }
+
+
+
 
     @Test
     public void testGetUserReturnOk() throws Exception {
@@ -100,10 +174,29 @@ public class UserControllerTests {
 
     }
 
-    @Test
-    @Disabled
-    public void testAddUserReturnOk() {
 
+    @Test
+    public void testAddUserReturnOk() throws Exception {
+        String endpointUrl = "/users";
+        User user = new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null);
+
+        when(userService.add(user)).thenReturn(user);
+
+        MvcResult result = mockMvc.perform(post(endpointUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectmapper.writeValueAsString(user)))
+                 .andExpect(status().isCreated())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        User userResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(userResult);
+        assertEquals(201, result.getResponse().getStatus());
+        assertEquals("Juan", userResult.getName());
+        assertEquals("email", userResult.getEmail());
+        assertEquals("address", userResult.getAddress());
 
     }
 
