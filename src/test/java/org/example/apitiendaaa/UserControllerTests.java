@@ -8,7 +8,6 @@ import org.example.apitiendaaa.domain.User;
 import org.example.apitiendaaa.exception.ErrorResponse;
 import org.example.apitiendaaa.exception.UserNotFoundException;
 import org.example.apitiendaaa.service.UserService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -201,8 +200,25 @@ public class UserControllerTests {
     }
 
     @Test
-    @Disabled
-    public void testAddUserReturnBadRequest() {
+    public void testAddUserReturnBadRequest() throws Exception{
+        String endpointUrl = "/users";
+        User user = new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null);
+
+        when(userService.add(user)).thenThrow(new UserNotFoundException());
+
+        MvcResult result = mockMvc.perform(post(endpointUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectmapper.writeValueAsString(user)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        ErrorResponse errorResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(errorResult);
+        assertEquals(400, errorResult.getErrorcode());
+        assertEquals("", errorResult.getMessage());
 
     }
 }
