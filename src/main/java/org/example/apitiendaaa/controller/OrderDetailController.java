@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import jakarta.validation.Valid;
 import org.example.apitiendaaa.domain.DTO.OrderDetailInDTO;
 import org.example.apitiendaaa.domain.DTO.OrderDetailOutDTO;
 import org.example.apitiendaaa.domain.OrderDetail;
@@ -27,7 +28,7 @@ public class OrderDetailController {
 
 
     @PostMapping("/users/{userId}/orders/{orderId}/details")
-    public ResponseEntity<OrderDetail> addOrderDetail(@PathVariable long userId, @PathVariable long orderId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public ResponseEntity<OrderDetail> addOrderDetail(@PathVariable long userId, @PathVariable long orderId, @Valid @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
        logger.info("BEGIN addOrderDetail");
         OrderDetail orderDetail = orderDetailService.add(userId, orderId, orderDetailIn);
         logger.info("END addOrderDetail");
@@ -47,7 +48,7 @@ public class OrderDetailController {
 
 
     @PutMapping("/users/{userId}/orders/{orderId}/details/{detailId}")
-    public ResponseEntity<OrderDetailOutDTO> updateOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public ResponseEntity<OrderDetailOutDTO> updateOrderDetail(@PathVariable long userId, @PathVariable long orderId, @PathVariable long detailId, @Valid @RequestBody OrderDetailInDTO orderDetailIn) throws OrderNotFoundException, UserNotFoundException, ProductNotFoundException {
         logger.info("BEGIN updateOrderDetail");
         OrderDetailOutDTO orderDetail = orderDetailService.update(userId, orderId, detailId, orderDetailIn);
         logger.info("END updateOrderDetail");
