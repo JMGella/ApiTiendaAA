@@ -12,7 +12,7 @@ public class OrderDetailNotFoundException extends Exception{
     }
 
     public OrderDetailNotFoundException() {
-        super();
+        super("OrderDetail no encontrado");
     }
 
 }

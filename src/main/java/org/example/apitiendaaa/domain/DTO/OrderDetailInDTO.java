@@ -13,5 +13,6 @@ public class OrderDetailInDTO {
     @NotNull
     private int quantity;
     private Float discount;
+    @NotNull
     private Long productId;
 }

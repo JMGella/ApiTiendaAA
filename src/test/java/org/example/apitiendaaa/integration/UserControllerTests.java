@@ -1,4 +1,4 @@
-package org.example.apitiendaaa;
+package org.example.apitiendaaa.integration;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,6 @@ import org.example.apitiendaaa.domain.User;
 import org.example.apitiendaaa.exception.ErrorResponse;
 import org.example.apitiendaaa.exception.UserNotFoundException;
 import org.example.apitiendaaa.service.UserService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,9 +20,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
@@ -45,7 +44,8 @@ public class UserControllerTests {
      when(userService.getAll("","",false)).thenReturn(users);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl))
+        MvcResult result = mockMvc.perform(get(endpointUrl)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -69,7 +69,8 @@ public class UserControllerTests {
         when(userService.getAll("Juan","",false)).thenReturn(users);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("name", "Juan"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("name", "Juan")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -90,7 +91,8 @@ public class UserControllerTests {
 
         when(userService.getAll("", "email", false)).thenReturn(users);
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("email", "email"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("email", "email")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -112,7 +114,8 @@ public class UserControllerTests {
 
         when(userService.getAll("", "", true)).thenReturn(users);
 
-        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("active", "true"))
+        MvcResult result = mockMvc.perform(get(endpointUrl).queryParam("active", "true")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -137,7 +140,8 @@ public class UserControllerTests {
         when(userService.get(1)).thenReturn(user);
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl, "1"))
+        MvcResult result = mockMvc.perform(get(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -159,7 +163,8 @@ public class UserControllerTests {
         when(userService.get(1)).thenThrow(new UserNotFoundException());
 
 
-        MvcResult result = mockMvc.perform(get(endpointUrl, "1"))
+        MvcResult result = mockMvc.perform(get(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andReturn();
 
@@ -175,16 +180,20 @@ public class UserControllerTests {
     }
 
 
+
     @Test
     public void testAddUserReturnOk() throws Exception {
         String endpointUrl = "/users";
-        User user = new User(1, "Juan", "email", null, true, "address", "phone", null, "latitude", "longitude", null);
+        User user = new User(1, "Juan", "email@email.com", null, true, "address", "6666666", null, "latitude", "longitude", null);
 
         when(userService.add(user)).thenReturn(user);
 
+        String body = objectmapper.writeValueAsString(user);
+
         MvcResult result = mockMvc.perform(post(endpointUrl)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectmapper.writeValueAsString(user)))
+                        .accept(MediaType.APPLICATION_JSON)
+                .content(body))
                  .andExpect(status().isCreated())
                 .andReturn();
 
@@ -195,14 +204,155 @@ public class UserControllerTests {
         assertNotNull(userResult);
         assertEquals(201, result.getResponse().getStatus());
         assertEquals("Juan", userResult.getName());
-        assertEquals("email", userResult.getEmail());
+        assertEquals("email@email.com", userResult.getEmail());
         assertEquals("address", userResult.getAddress());
 
     }
 
     @Test
-    @Disabled
-    public void testAddUserReturnBadRequest() {
+    public void testAddUserReturnBadRequest() throws Exception{
+        String endpointUrl = "/users";
+        User user = new User(1, null, null, null, true, "address", "phone", null, "latitude", "longitude", null);
+
+        String body = objectmapper.writeValueAsString(user);
+
+        MvcResult result = mockMvc.perform(post(endpointUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        ErrorResponse errorResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(errorResult);
+        assertEquals(400, errorResult.getErrorcode());
+        assertEquals("Bad Request", errorResult.getMessage());
 
     }
+
+    @Test
+    public void testUpdateUserOk() throws Exception {
+        String endpointUrl = "/users/{userId}";
+        User user = new User(1, "Juan", "email@email.com" , null, true, "address", "6666666", null, "latitude", "longitude", null);
+        when(userService.update(1, user)).thenReturn(user);
+
+        String body = objectmapper.writeValueAsString(user);
+
+        MvcResult result = mockMvc.perform(put(endpointUrl, "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        User userResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(userResult);
+        assertEquals(200, result.getResponse().getStatus());
+        assertEquals("Juan", userResult.getName());
+
+    }
+
+    @Test
+    public void testUpdateUserBadRequest() throws Exception {
+        String endpointUrl = "/users/{userId}";
+        User user = new User(1, null, null, null, true, "address", "phone", null, "latitude", "longitude", null);
+
+        String body = objectmapper.writeValueAsString(user);
+
+        MvcResult result = mockMvc.perform(put(endpointUrl, "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        ErrorResponse errorResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(errorResult);
+        assertEquals(400, errorResult.getErrorcode());
+        assertEquals("Bad Request", errorResult.getMessage());
+
+    }
+
+    @Test
+    public void testUpdateUserNotFound() throws Exception {
+        String endpointUrl = "/users/{userId}";
+        User user = new User(1, "Juan", "email@email.com" , null, true, "address", "6666666", null, "latitude", "longitude", null);
+
+        when(userService.update(1, user)).thenThrow(new UserNotFoundException());
+
+        String body = objectmapper.writeValueAsString(user);
+
+        MvcResult result = mockMvc.perform(put(endpointUrl, "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        ErrorResponse errorResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(errorResult);
+
+        assertEquals(404, errorResult.getErrorcode());
+        assertEquals("El usuario no existe", errorResult.getMessage());
+
+
+    }
+
+    @Test
+    public void testDeleteUserOk() throws Exception {
+        String endpointUrl = "/users/{userId}";
+
+        MvcResult result = mockMvc.perform(delete(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andReturn();
+
+        assertEquals(204, result.getResponse().getStatus());
+
+    }
+
+    @Test
+    public void testDeleteUserNotFound() throws Exception {
+        String endpointUrl = "/users/{userId}";
+
+
+        doThrow(new UserNotFoundException()).when(userService).delete(1);
+
+        MvcResult result = mockMvc.perform(delete(endpointUrl, "1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+
+        ErrorResponse errorResult = objectmapper.readValue(jsonResult, new TypeReference<>() {});
+
+        assertNotNull(errorResult);
+
+        assertEquals(404, errorResult.getErrorcode());
+        assertEquals("El usuario no existe", errorResult.getMessage());
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

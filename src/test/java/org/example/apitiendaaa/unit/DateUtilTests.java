@@ -1,4 +1,4 @@
-package org.example.apitiendaaa;
+package org.example.apitiendaaa.unit;
 
 import org.example.apitiendaaa.util.DateUtil;
 import org.junit.jupiter.api.Test;

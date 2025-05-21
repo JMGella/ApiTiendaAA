@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import jakarta.validation.Valid;
 import org.example.apitiendaaa.domain.Category;
 import org.example.apitiendaaa.domain.DTO.CategoryOutDTO;
 import org.example.apitiendaaa.exception.CategoryNotFoundException;
@@ -26,7 +27,7 @@ public class CategoryController {
     private final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     @PostMapping("/categories")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> addCategory(@Valid @RequestBody Category category) {
         logger.info("BEGIN categories addCategory");
         Category newCategory = categoryService.add(category);
         logger.info("END categories addCategory");
@@ -52,7 +53,7 @@ public class CategoryController {
     }
 
     @PutMapping("/categories/{categoryId}")
-    public ResponseEntity<Category> updateCategory(@PathVariable long categoryId, @RequestBody Category category) throws CategoryNotFoundException {
+    public ResponseEntity<Category> updateCategory(@PathVariable long categoryId, @Valid @RequestBody Category category) throws CategoryNotFoundException {
         logger.info("BEGIN categories updateCategory");
         Category updatedCategory = categoryService.update(categoryId, category);
         logger.info("END categories updateCategory");
