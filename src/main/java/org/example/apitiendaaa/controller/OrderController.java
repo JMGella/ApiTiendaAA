@@ -1,5 +1,6 @@
 package org.example.apitiendaaa.controller;
 
+import jakarta.validation.Valid;
 import org.example.apitiendaaa.domain.DTO.OrderOutDTO;
 import org.example.apitiendaaa.domain.Order;
 import org.example.apitiendaaa.exception.ErrorResponse;
@@ -38,7 +39,7 @@ public class OrderController {
     }
 
     @PostMapping("users/{userId}/orders")
-    public ResponseEntity<Order> addOrder(@PathVariable long userId, @RequestBody Order order) throws UserNotFoundException {
+    public ResponseEntity<Order> addOrder(@PathVariable long userId, @Valid @RequestBody Order order) throws UserNotFoundException {
         logger.info("BEGIN addOrder");
         orderService.add(userId, order);
         logger.info("END addOrder");
@@ -63,7 +64,7 @@ public class OrderController {
     }
 
     @PutMapping("/users/{userId}/orders/{orderId}")
-    public ResponseEntity<Order> updateOrder(@PathVariable long userId, @PathVariable long orderId, @RequestBody Order order) throws UserNotFoundException, OrderNotFoundException {
+    public ResponseEntity<Order> updateOrder(@PathVariable long userId, @PathVariable long orderId, @Valid @RequestBody Order order) throws UserNotFoundException, OrderNotFoundException {
        logger.info("BEGIN updateOrder");
         Order ordertoupdate = orderService.update(userId, orderId, order);
         logger.info("END updateOrder");
