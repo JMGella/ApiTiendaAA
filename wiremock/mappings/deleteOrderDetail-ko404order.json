@@ -1,7 +1,8 @@
 {
+  "priority": 1,
   "request": {
-    "method": "PUT",
-    "url": "/users/1/orders/100"
+    "method": "DELETE",
+    "url": "/users/1/orders/100/details/1"
   },
   "response": {
     "status": 404,

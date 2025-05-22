@@ -1,0 +1,13 @@
+{
+  "priority":5,
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/users/.*/orders/.*/details/.*"
+  },
+  "response": {
+    "status": 204,
+    "headers":{
+      "Content-Type": "application/json"
+    }
+  }
+}

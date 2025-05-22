@@ -1,13 +1,13 @@
 {
   "request": {
-    "method": "PUT",
-    "url": "/users/1/orders/100"
+    "method": "GET",
+    "url": "/users/100/orders/1/details"
   },
   "response": {
     "status": 404,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyFileName": "OrderNotFound.json"
+    "bodyFileName": "UserNotFound.json"
   }
 }

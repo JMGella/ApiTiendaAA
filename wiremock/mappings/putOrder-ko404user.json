@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PUT",
-    "url": "/user/100/orders/1"
+    "url": "/users/100/orders/1"
   },
   "response": {
     "status": 404,

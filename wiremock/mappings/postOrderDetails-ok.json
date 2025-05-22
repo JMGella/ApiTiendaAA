@@ -1,13 +1,13 @@
 {
   "request": {
     "method": "POST",
-    "urlPathPattern": "/users/[A-Za-z]+"
+    "url": "/users/1/orders/1/details"
   },
   "response": {
-    "status": 500,
+    "status": 201,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyFileName": "InternalServerError.json"
+    "bodyFileName": "postOrderDetail-ok.json"
   }
 }
