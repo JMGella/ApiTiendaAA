@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "status": "Enviado",
+  "total": 100.00,
+  "address": "Via Hispanidad 1",
+  "creationDate": "2025-05-22",
+  "paymentMethod": "Credit Card",
+  "orderDetails": []
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/orders/100"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "OrderNotFound.json"
+  }
+}

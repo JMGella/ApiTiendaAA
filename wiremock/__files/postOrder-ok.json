@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "status": "Pendiente",
+  "total": null,
+  "address": "Via Hispanidad 1",
+  "creationDate": "2025-05-22",
+  "paymentMethod": "Credit Card",
+  "orderDetails": []
+}
