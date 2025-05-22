@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/categories/10/products"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "CategoryNotFound.json"
+  }
+}

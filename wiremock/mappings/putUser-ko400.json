@@ -1,0 +1,25 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "PUT",
+    "urlPathPattern": "/users/4",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(@.name == '' || @.name == null)]"
+      },
+      {
+        "matchesJsonPath": "$[?(!(@.email =~ /^.+@.+\\..+$/))]"
+      },
+      {
+        "matchesJsonPath": "$[?(@.phone =~ /.*[^0-9].*/)]"
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "BadRequest.json"
+  }
+}

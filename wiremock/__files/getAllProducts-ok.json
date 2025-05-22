@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Toalla",
+    "price": 10.0,
+    "categoryId": 1,
+    "creationDate": "2025-04-03",
+    "description": "Toalla roja"
+  },
+  {
+    "id": 2,
+    "name": "Mario Bros",
+    "price": 100.0,
+    "categoryId": 2,
+    "creationDate": "2025-04-03",
+    "description": "Mario bros y luigui"
+  },
+  {
+    "id": 3,
+    "name": "Tetris",
+    "price": 60.0,
+    "categoryId": 3,
+    "creationDate": "2025-04-03",
+    "description": "Piececitas que caen del cielo"
+  }
+]

@@ -1,0 +1,11 @@
+{
+    "name": "Luis",
+    "email": "luis@mail.com",
+    "birthDate": "1990-04-10",
+    "active": true,
+    "address": "Call de la Paz, 21",
+    "phone": "6123456789",
+    "creationDate": "2025-04-03",
+    "latitude": "41.65652247547624",
+    "longitude": "-0.8586304615327549"
+ }

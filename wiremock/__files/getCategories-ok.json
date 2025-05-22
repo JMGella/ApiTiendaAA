@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Playa",
+        "description": "Articulos de playa",
+        "active": true,
+        "creationDate": "2025-04-03"
+    },
+    {
+        "id": 2,
+        "name": "Videojuegos",
+        "description": "Videojuegos de consola y PC",
+        "active": true,
+        "creationDate": "2025-04-03"
+    },
+    {
+        "id": 3,
+        "name": "Deporte",
+        "description": "Utensilios de deporte",
+        "active": true,
+        "creationDate": "2025-04-03"
+    }
+]
