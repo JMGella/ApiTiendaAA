@@ -38,14 +38,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users"
+								"{{BASEPATH}}users"
 							]
 						}
 					},
@@ -80,14 +75,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1"
 							]
 						}
@@ -123,14 +115,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/4",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/4",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"4"
 							]
 						}
@@ -166,14 +155,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/user",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/user",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"user"
 							]
 						}
@@ -218,14 +204,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users"
+								"{{BASEPATH}}users"
 							]
 						}
 					},
@@ -269,14 +250,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users"
+								"{{BASEPATH}}users"
 							]
 						}
 					},
@@ -320,14 +296,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/user",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/user",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"user"
 							]
 						}
@@ -372,14 +345,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1"
 							]
 						}
@@ -424,14 +394,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/5",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/5",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"5"
 							]
 						}
@@ -476,14 +443,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/4",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/4",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"4"
 							]
 						}
@@ -518,14 +482,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1"
 							]
 						}
@@ -561,14 +522,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/5",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/5",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"5"
 							]
 						}
@@ -604,14 +562,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/aaa",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/aaa",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"aaa"
 							]
 						}
@@ -652,14 +607,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"categories"
+								"{{BASEPATH}}categories"
 							]
 						}
 					},
@@ -694,14 +644,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1"
 							]
 						}
@@ -737,14 +684,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/10",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/10",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"10"
 							]
 						}
@@ -780,14 +724,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/aaa",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/aaa",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"aaa"
 							]
 						}
@@ -832,14 +773,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"categories"
+								"{{BASEPATH}}categories"
 							]
 						}
 					},
@@ -883,14 +819,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"categories"
+								"{{BASEPATH}}categories"
 							]
 						}
 					},
@@ -934,14 +865,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/12",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/12",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"12"
 							]
 						}
@@ -986,14 +914,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1"
 							]
 						}
@@ -1038,14 +963,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/10",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/10",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"10"
 							]
 						}
@@ -1090,14 +1012,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/15",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/15",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"15"
 							]
 						}
@@ -1132,14 +1051,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1"
 							]
 						}
@@ -1175,14 +1091,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/10",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/10",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"10"
 							]
 						}
@@ -1218,14 +1131,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/categoria",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/categoria",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"categoria"
 							]
 						}
@@ -1266,14 +1176,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"products"
+								"{{BASEPATH}}products"
 							]
 						}
 					},
@@ -1308,14 +1213,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"1"
 							]
 						}
@@ -1351,14 +1253,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/10",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/10",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"10"
 							]
 						}
@@ -1394,14 +1293,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/producto",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/producto",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"producto"
 							]
 						}
@@ -1446,14 +1342,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/1/products",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1/products",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1",
 								"products"
 							]
@@ -1499,14 +1392,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/10/products",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/10/products",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"10",
 								"products"
 							]
@@ -1552,14 +1442,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/1/products",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1/products",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1",
 								"products"
 							]
@@ -1605,14 +1492,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/1/products/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1/products/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1",
 								"products",
 								"1"
@@ -1659,14 +1543,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/1/products/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/1/products/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"1",
 								"products",
 								"100"
@@ -1713,14 +1594,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/100/products/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}categories/100/products/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}categories"
 							],
-							"port": "8080",
 							"path": [
-								"categories",
 								"100",
 								"products",
 								"1"
@@ -1757,14 +1635,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"1"
 							]
 						}
@@ -1800,14 +1675,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"100"
 							]
 						}
@@ -1843,14 +1715,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products/producto",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}products/producto",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}products"
 							],
-							"port": "8080",
 							"path": [
-								"products",
 								"producto"
 							]
 						}
@@ -1891,14 +1760,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"orders"
+								"{{BASEPATH}}orders"
 							]
 						}
 					},
@@ -1933,14 +1797,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders"
 							]
@@ -1977,14 +1838,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders"
 							]
@@ -2021,14 +1879,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}orders"
 							],
-							"port": "8080",
 							"path": [
-								"orders",
 								"1"
 							]
 						}
@@ -2064,14 +1919,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}orders"
 							],
-							"port": "8080",
 							"path": [
-								"orders",
 								"100"
 							]
 						}
@@ -2116,14 +1968,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders"
 							]
@@ -2169,14 +2018,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders"
 							]
@@ -2222,14 +2068,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/5/orders",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/5/orders",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"5",
 								"orders"
 							]
@@ -2275,14 +2118,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1"
@@ -2329,14 +2169,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders",
 								"1"
@@ -2383,14 +2220,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"100"
@@ -2427,14 +2261,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}orders"
 							],
-							"port": "8080",
 							"path": [
-								"orders",
 								"1"
 							]
 						}
@@ -2470,14 +2301,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}orders"
 							],
-							"port": "8080",
 							"path": [
-								"orders",
 								"100"
 							]
 						}
@@ -2513,14 +2341,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/orders/pedido",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}orders/pedido",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}orders"
 							],
-							"port": "8080",
 							"path": [
-								"orders",
 								"pedido"
 							]
 						}
@@ -2561,14 +2386,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1",
@@ -2607,14 +2429,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders/1/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders/1/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders",
 								"1",
@@ -2653,14 +2472,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/100/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/100/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"100",
@@ -2708,14 +2524,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1",
@@ -2763,14 +2576,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders/1/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders/1/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders",
 								"1",
@@ -2818,14 +2628,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/100/details",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/100/details",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"100",
@@ -2873,14 +2680,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1/details/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1/details/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1",
@@ -2929,14 +2733,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/100/orders/1/details/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/100/orders/1/details/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"100",
 								"orders",
 								"1",
@@ -2985,14 +2786,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/100/details/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/100/details/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"100",
@@ -3031,14 +2829,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1/details/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1/details/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1",
@@ -3078,14 +2873,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/1/details/100",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/1/details/100",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"1",
@@ -3125,14 +2917,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/orders/100/details/1",
-							"protocol": "http",
+							"raw": "{{BASEPATH}}users/1/orders/100/details/1",
 							"host": [
-								"localhost"
+								"{{BASEPATH}}users"
 							],
-							"port": "8080",
 							"path": [
-								"users",
 								"1",
 								"orders",
 								"100",
