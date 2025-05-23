@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "status": "Pendiente",
+    "total": 200.50,
+    "userId": 1,
+    "address": "Via Hispanidad 1",
+    "creationDate": "2025-05-22",
+    "paymentMethod": "Credit Card"
+  },
+  {
+    "id": 3,
+    "status": "Pendiente",
+    "total": 20.50,
+    "userId": 1,
+    "address": "Via Hispanidad, 1",
+    "creationDate": "2025-05-22",
+    "paymentMethod": "Pay Pal"
+  }
+]

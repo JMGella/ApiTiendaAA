@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/users/100/orders/1/details"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "UserNotFound.json"
+  }
+}

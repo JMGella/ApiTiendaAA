@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/users/1/orders/1/details"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "postOrderDetail-ok.json"
+  }
+}

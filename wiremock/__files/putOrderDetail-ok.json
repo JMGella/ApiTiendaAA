@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "orderId": 1,
+  "productId": 2,
+  "productName": "Toalla",
+  "quantity": 3,
+  "discount": 0.0,
+  "subtotal": 30.0
+}

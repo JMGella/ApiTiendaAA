@@ -1,0 +1,19 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "POST",
+    "url": "/users/5/orders",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(@.status == '' || @.status == null)]"
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "BadRequest.json"
+  }
+}

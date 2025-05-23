@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "status": "Pendiente",
+  "total": 100,
+  "address": "Via Hispanidad 1",
+  "creationDate": "2025-05-22",
+  "paymentMethod": "Credit Card",
+  "orderDetails": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "productId": 2,
+      "productName": "Toalla",
+      "quantity": 2,
+      "discount": 0.0,
+      "subtotal": 20.0
+    },
+    {
+      "id": 2,
+      "orderId": 1,
+      "productId": 3,
+      "productName": "Mario Bros",
+      "quantity": 1,
+      "discount": 20.0,
+      "subtotal": 80.0
+    }
+  ]
+}

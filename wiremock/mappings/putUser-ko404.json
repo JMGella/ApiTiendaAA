@@ -1,0 +1,13 @@
+{
+  "request": {
+  "method": "PUT",
+  "url": "/users/5"
+},
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "UserNotFound.json"
+  }
+}

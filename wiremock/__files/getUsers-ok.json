@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Javier",
+    "email": "javier@mail.com",
+    "birthDate": "1990-04-10",
+    "active": true,
+    "address": "Call de la Paz, 22",
+    "phone": "6123456789",
+    "creationDate": "2025-04-03",
+    "latitude": "41.65652247547624",
+    "longitude": "-0.8586304615327549"
+  },
+  {
+    "id": 2,
+    "name": "Santiago",
+    "email": "santi@santiago.es",
+    "birthDate": "1980-05-19",
+    "active": true,
+    "address": "Calle Arriba , 1",
+    "phone": "666112233",
+    "creationDate": "2025-05-05",
+    "latitude": "41.660045971405964",
+    "longitude": "-0.8849084461681969"
+  },
+  {
+    "id": 3,
+    "name": "Samuel",
+    "email": "samuel@samumail.com",
+    "birthDate": "1979-04-09",
+    "active": true,
+    "address": "Avenida Esperanza, 3",
+    "phone": "657481111",
+    "creationDate": "2025-05-05",
+    "latitude": "41.64273639115868",
+    "longitude": "-0.9139452743332299"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "name": "Playa",
+  "description": "Articulos de playa",
+  "creationDate": "2025-04-03",
+  "active": true,
+  "image": "https://example.com/images/playa.jpg",
+  "products": [
+    {
+      "id": 2,
+      "name": "Toalla",
+      "description": "Toalla roja",
+      "price": 10.0,
+      "creationDate": "2025-04-03",
+      "active": true,
+      "image": "noimage.jpg",
+      "orderDetails": []
+    }
+  ]
+}

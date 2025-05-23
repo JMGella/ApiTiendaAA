@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "name": "Toalla",
+  "description": "Toalla verde",
+  "price": 10.0,
+  "creationDate": "2025-04-03",
+  "active": true,
+  "image": "noimage.jpg",
+  "orderDetails": []
+}

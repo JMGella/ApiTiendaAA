@@ -1,0 +1,14 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "DELETE",
+    "url": "/products/100"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "ProductNotFound.json"
+  }
+}
