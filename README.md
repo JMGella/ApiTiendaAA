@@ -8,9 +8,9 @@ Este proyecto es una API  para la gestión de usuarios, pedidos, productos, y ca
 
 ### **Actualización**
 
-1.**Se han añadido test unitarios y de integración.
-2.**Se ha añadido una versión mock de la api con WireMock.
-3.**Se ha creado una colección de Postman para la api mock.
+1. Se han añadido test unitarios y de integración.
+2. Se ha añadido una versión mock de la api con WireMock.
+3. Se ha creado una colección de Postman para la api mock.
 
 ---
 
