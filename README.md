@@ -3,6 +3,15 @@
 ## **Descripción**
 Este proyecto es una API  para la gestión de usuarios, pedidos, productos, y categorías en una tienda. Permite realizar operaciones CRUD y manejar relaciones entre las diferentes entidades.
 
+
+---
+
+## **Actualización**
+
+**Se han añadido test unitarios y de integración.
+**Se ha añadido una versión mock de la api con WireMock.
+**Se ha creado una colección de Postman para la api mock.
+
 ---
 
 ## **Requisitos Previos**
