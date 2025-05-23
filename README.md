@@ -3,6 +3,8 @@
 ## **Descripción**
 Este proyecto es una API  para la gestión de usuarios, pedidos, productos, y categorías en una tienda. Permite realizar operaciones CRUD y manejar relaciones entre las diferentes entidades.
 
+Se puede consultar la documentación de la api en el swagger .yml del proyecto.
+
 
 ---
 
